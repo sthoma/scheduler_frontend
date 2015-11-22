@@ -1,0 +1,18 @@
+# Universal ignores
+*.tgz
+*.gz
+*.zip
+*.psd
+*.log
+*.tar
+*.tar.gz
+*.swp
+.DS_Store
+.project
+.idea
+
+# Node Ignores
+/bower_components
+/node_modules
+/.tmp
+/dist

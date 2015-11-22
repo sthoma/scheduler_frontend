@@ -1,0 +1,20 @@
+{
+  "name": "betandem",
+  "description": "Betandem frontend",
+  "main": "index.js",
+  "authors": [
+    "Brandon Mikulka <brandon.mikulka@colorado.edu>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}
