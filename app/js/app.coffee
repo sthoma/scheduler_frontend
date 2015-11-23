@@ -1,11 +1,16 @@
-AppView = Backbone.View.extend({
-    el: '#hello-word'
+'use strict'
 
-    initialize : ->
-    	this.render();
+angular.module 'tandemApp', ['ngRoute']
 
-    render: ->
-    	this.$el.html("Hellos World!");
-})
+.config [
+  '$routeProvider',
+  ($routeProvider) ->
+    $routeProvider
+      .when "/",
+        templateUrl: "./views/home.html",
+        controller: "MainController"
+      .otherwise
+        redirectTo: '/'
 
-test = AppView()
+]
+

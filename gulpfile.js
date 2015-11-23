@@ -1,119 +1,111 @@
+'use strict';
+
 /**
   * Load Dependiencies
   */
 
 var gulp       = require('gulp'),
-	connect      = require('gulp-connect'),
-	coffeelint   = require('gulp-coffeelint'),
+  connect      = require('gulp-connect'),
+  coffeelint   = require('gulp-coffeelint'),
   stylish      = require('coffeelint-stylish'),
-	uglify       = require('gulp-uglify'),
-	minifyCSS    = require('gulp-minify-css'),
-	clean        = require('gulp-clean'),
-	livereload   = require('gulp-livereload'),
-	coffee       = require('gulp-coffee'),
-	gutil        = require('gulp-util'),
-	wiredep      = require('wiredep').stream;
+  uglify       = require('gulp-uglify'),
+  sass         = require('gulp-sass'),
+  minifyCSS    = require('gulp-minify-css'),
+  clean        = require('gulp-clean'),
+  livereload   = require('gulp-livereload'),
+  coffee       = require('gulp-coffee'),
+  gutil        = require('gulp-util'),
+  wiredep      = require('wiredep').stream;
 
 /**
-  * Build Development Environment
+  * Gulp Configurations
   */
 
-// lint coffee files
-gulp.task('coffeelint', function() {
+var config = {
+  tmpDir: './.tmp',
+  prodDir: './dist',
+  prod: !!gutil.env.production,
+  serve: !gutil.env.build,
+  init: function(){
+    this.buildDir = this.prod ? this.prodDir : this.tmpDir;
+    return this;
+  }
+}.init();
+
+/**
+  * Build Tasks
+  */
+
+// lint files
+gulp.task('lint', function() {
   gulp.src(['./app/**/*.coffee', '!./app/bower_components/**'])
     .pipe(coffeelint())
     .pipe(coffeelint.reporter(stylish))
 });
 
 // empty .tmp folder
-gulp.task('clean-dev', function() {
-    gulp.src('./.tmp/*')
+gulp.task('clean', function() {
+    gulp.src(config.tmpDir + '/*')
+      .pipe(clean({force: true}));
+    gulp.src(config.prodDir + '/*')
       .pipe(clean({force: true}));
 });
 
 // Render coffescript to js
-gulp.task('coffee-dev', function(){
+gulp.task('coffee', function(){
   gulp.src('./app/**/*.coffee')
-    .pipe(coffee({bare: true}).on('error', gutil.log))
-    .pipe(gulp.dest('./.tmp'));
+    .pipe(coffee({bare: false}).on('error', gutil.log))
+    .pipe(gulp.dest(config.buildDir));
+
+  // Production Uglify
+  if(config.prod){
+    gulp.src([config.prodDir + '/**/*.js'])
+      .pipe(uglify())
+      .pipe(gulp.dest(config.prodDir));
+  }
+});
+
+gulp.task('sass', function(){
+  var dir = config.buildDir;
+  var dev = {sourceComments: true};
+  var prod = {outputStyle: 'compressed'};
+  gulp.src(['./app/sass/**/*.scss'])
+    .pipe(sass(config.prod? prod : dev).on('error', sass.logError))
+    .pipe(gulp.dest(dir + '/css'))
 });
 
 // Pull in html files
-gulp.task('copy-html-files-dev', function () {
+gulp.task('copy-html', function () {
   gulp.src(['./app/**/*.html', '!./app/index.html'])
-    .pipe(gulp.dest('./.tmp'));
-});
-
-// Copy bower_components
-gulp.task('copy-bower-dev', function () {
-  gulp.src('./bower_components/**')
-    .pipe(gulp.dest('./.tmp/bower_components'));
-});
-
-// Write Bower dependencies to html
-gulp.task('bower', function () {
+    .pipe(gulp.dest(config.buildDir));
+  // Inject bower depenencies
   gulp.src('./app/index.html')
     .pipe(wiredep({
+      ignorePath:  /\.\.\//,
     }))
-    .pipe(gulp.dest('./.tmp'));
+    .pipe(gulp.dest(config.buildDir));
 });
 
-gulp.task('develop', function () {
-  connect.server({
-    root: '.tmp/',
-    port: 8888
-  });
+// Setup bower dependencies
+gulp.task('bower', function () {
+  var dir = config.buildDir;
+  // Copy bower components
+  gulp.src('./bower_components/**')
+    .pipe(gulp.dest(dir + '/bower_components'));
 });
-
 
 /**
-  * Build Production Environment
+  * Serve Tasks
   */
 
-// empty dist folder
-gulp.task('clean-prod', function() {
-    gulp.src('./dist/*')
-      .pipe(clean({force: true}));
-});
-
-// minify css for production
-gulp.task('minify-css', function() {
-  var opts = {comments:true,spare:true};
-  gulp.src(['./.tmp/**/*.css'])
-    .pipe(minifyCSS(opts))
-    .pipe(gulp.dest('./dist/'))
-});
-
-// minify js for production
-gulp.task('minify-js', function() {
-  gulp.src(['./.tmp/**/*.js'])
-    .pipe(uglify({
-      // inSourceMap:
-      // outSourceMap: "app.js.map"
-    }))
-    .pipe(gulp.dest('./dist/'))
-});
-
-// Create a copy of the bower libraries
-gulp.task('copy-bower-prod', function () {
-  gulp.src('./bower_components/**')
-    .pipe(gulp.dest('./dist/bower_components'));
-});
-
-// Pull in html files
-gulp.task('copy-html-prod', function () {
-  gulp.task('bower-dep', ['bower']);
-  gulp.src('./.tmp/**/*.html')
-    .pipe(gulp.dest('./dist/'));
-});
-
-
-
-gulp.task('production', function () {
-  connect.server({
-    root: 'dist/',
-    port: 9999
-  });
+gulp.task('serve', function () {
+  if(config.serve){
+    gutil.log("Running server from " + config.buildDir);
+    connect.server({
+      root: config.buildDir,
+      port: config.prod ? 9999 : 8888
+    });
+  }
 });
 
 //Connect Livereload for easy Development
@@ -122,20 +114,14 @@ gulp.task('livereload', function() {
 })
 
 gulp.task('watch', function() {
-  livereload.listen();
-  gulp.watch(['app/**/*.html', 'app/**/*.coffee'], ['livereload', 'coffeelint', 'coffee-dev']);
+  if(config.serve){
+    livereload.listen();
+    gulp.watch(['app/**/*.html', 'app/js/*.coffee', 'app/sass/*.scss'], ['livereload', 'lint', 'coffee', 'sass', 'copy-html']);
+  }
 });
 
 
 // default task
 gulp.task('default',
-  ['coffeelint', 'coffee-dev', 'copy-html-files-dev', 'copy-bower-dev', 'bower', 'develop', 'watch']
+  ['lint', 'coffee', 'sass', 'copy-html', 'bower', 'serve', 'watch']
 );
-
-// // build task
-// gulp.task('build', function(){
-//   gulp.task('build-default', ['default']);
-//   gulp.task('copy-to-dist',
-//     ['lint', 'minify-css', 'minify-js', 'copy-html-files', 'copy-bower-components', 'production']
-//   );
-// });
