@@ -1,6 +1,11 @@
 'use strict'
 
-angular.module 'tandemApp', ['ngRoute']
+angular.module 'tandemApp', [
+  'ngRoute'
+  'ngResource'
+]
+.constant "CONST",
+  "API_URL": "api/v1/"
 
 .config [
   '$routeProvider',
