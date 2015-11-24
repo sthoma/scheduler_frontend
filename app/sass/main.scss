@@ -1,4 +1,10 @@
 @import "partials/globals";
+@import "partials/vendor_overrides";
+
+/* Sass Bower Dependencies */
+// bower:scss
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+// endbower
 
 html{
   color: $primary-text;

@@ -69,9 +69,13 @@ gulp.task('sass', function(){
   var dir = config.buildDir;
   var dev = {sourceComments: true};
   var prod = {outputStyle: 'compressed'};
+  gulp.src('./app/sass/main.scss')
+    .pipe(wiredep())
+    .pipe(gulp.dest('./app/sass'));
   gulp.src(['./app/sass/**/*.scss'])
     .pipe(sass(config.prod? prod : dev).on('error', sass.logError))
-    .pipe(gulp.dest(dir + '/css'))
+    .pipe(gulp.dest(dir + '/css'));
+
 });
 
 // Pull in html files
@@ -116,7 +120,7 @@ gulp.task('livereload', function() {
 gulp.task('watch', function() {
   if(config.serve){
     livereload.listen();
-    gulp.watch(['app/**/*.html', 'app/js/*.coffee', 'app/sass/*.scss'], ['livereload', 'lint', 'coffee', 'sass', 'copy-html']);
+    gulp.watch(['app/**/*.html', 'app/js/**/*.coffee', 'app/sass/**/*.scss'], ['livereload', 'lint', 'coffee', 'sass', 'copy-html']);
   }
 });
 
