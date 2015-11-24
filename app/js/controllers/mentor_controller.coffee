@@ -7,6 +7,7 @@ angular.module 'tandemApp'
     ($scope) ->
       $scope.title = "Mentors"
 
+      #This is a mock for getting mentors from a db
       $scope.mentors = [{
           email: "dude@duders.com"
           expertise: "expert in duding"
@@ -21,6 +22,11 @@ angular.module 'tandemApp'
 
       $scope.addMentor = ->
         if $scope.newMentor
-          $scope.mentors.push $scope.newMentor
-        console.log $scope.mentors
+          newMentor =
+            name: $scope.newMentor.name
+            email: $scope.newMentor.email
+            expertise: $scope.newMentor.expertise
+            
+          $scope.mentors.push newMentor
+        #This is a mock for writing to our mongodb
   ]
