@@ -37,7 +37,7 @@ module.exports = function(config) {
     // options passed to the coffee compiler
     options: {
     bare: true,
-    sourceMap: false
+    sourceMap: true
     },
     // transforming the filenames
     transformPath: function(path) {
@@ -58,6 +58,9 @@ module.exports = function(config) {
 
   // enable / disable colors in the output (reporters and logs)
   colors: true,
+
+  // enable cosole.log for debugging from PhantomJS
+  captureConsole: true,
 
 
   // level of logging

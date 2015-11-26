@@ -22,6 +22,11 @@ Install node, then run:
   $ gulp --production --build #builds production enviornment
 ```
 
+###Test Build:
+``` bash
+  $ gulp unit #runs all unit tests
+```
+
 ###Workflow
   1. Pull remote changes
     - Use naming convention feature/<featurename> for creating feature branches, chore/<chorename> for chores
