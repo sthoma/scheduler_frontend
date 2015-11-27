@@ -16,7 +16,8 @@ var gulp       = require('gulp'),
   coffee       = require('gulp-coffee'),
   gutil        = require('gulp-util'),
   wiredep      = require('wiredep').stream,
-  karma        = require('karma').Server;
+  karma        = require('karma').Server,
+  protractor   = require('gulp-protractor').protractor;
 
 /**
   * Gulp Configurations
@@ -109,6 +110,16 @@ gulp.task('unit', function (done) {
     configFile: __dirname + '/tests/karma.conf.js',
     singleRun: true
   }, done).start();
+});
+
+gulp.task('e2e', function(done) {
+  var args = ['--baseUrl', 'http://127.0.0.1:8888'];
+  gulp.src(["./tests/e2e/*.js"])
+    .pipe(protractor({
+      configFile: "tests/protractor.conf.js",
+      args: args
+    }))
+    .on('error', function(e) { throw e; });
 });
 
 

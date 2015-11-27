@@ -8,6 +8,8 @@ The frontend application for our scheduler app, connecting via api to the backen
 Install node, then run:
 ``` bash
   $ npm install && bower install
+  $ npm install -g webdriver-manager #for selenium testing
+  $ webdriver-manager update --standalone
 ```
 
 ###Run Server:
@@ -23,8 +25,23 @@ Install node, then run:
 ```
 
 ###Test Build:
+####Run unit tests:
 ``` bash
   $ gulp unit #runs all unit tests
+```
+
+####Run e2e tests:
+In one terminal
+``` bash
+  $ gulp
+```
+In second terminal
+``` bash
+  $ gulp e2e
+```
+In third terminal
+``` bash
+  $ webdriver-manager start
 ```
 
 ###Workflow
