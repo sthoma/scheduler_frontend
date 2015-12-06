@@ -15,7 +15,9 @@ var gulp       = require('gulp'),
   livereload   = require('gulp-livereload'),
   coffee       = require('gulp-coffee'),
   gutil        = require('gulp-util'),
-  wiredep      = require('wiredep').stream;
+  wiredep      = require('wiredep').stream,
+  karma        = require('karma').Server,
+  protractor   = require('gulp-protractor').protractor;
 
 /**
   * Gulp Configurations
@@ -97,6 +99,29 @@ gulp.task('bower', function () {
   gulp.src('./bower_components/**')
     .pipe(gulp.dest(dir + '/bower_components'));
 });
+
+
+/**
+  * Testing Tasks
+  */
+
+gulp.task('unit', function (done) {
+  new karma({
+    configFile: __dirname + '/tests/karma.conf.js',
+    singleRun: true
+  }, done).start();
+});
+
+gulp.task('e2e', function(done) {
+  var args = ['--baseUrl', 'http://127.0.0.1:8888'];
+  gulp.src(["./tests/e2e/*.js"])
+    .pipe(protractor({
+      configFile: "tests/protractor.conf.js",
+      args: args
+    }))
+    .on('error', function(e) { throw e; });
+});
+
 
 /**
   * Serve Tasks
