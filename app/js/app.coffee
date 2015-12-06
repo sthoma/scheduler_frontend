@@ -5,7 +5,7 @@ angular.module 'tandemApp', [
   'ngResource'
 ]
 .constant "CONST",
-  "API_URL": "api/v1/"
+  "API_URL": "http://localhost:3000/api/v1/"
 
 .config [
   '$routeProvider',
@@ -22,6 +22,4 @@ angular.module 'tandemApp', [
         controller: "MainController"
       .otherwise
         redirectTo: '/'
-
 ]
-
