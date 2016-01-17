@@ -2,31 +2,23 @@
 
 angular.module 'tandemApp'
 
-.controller 'MentorController', [
-    '$scope',
-    ($scope) ->
-      $scope.title = "Mentors"
+.controller 'MentorController', ($scope, Mentor) ->
+  $scope.title = "Mentors"
 
-      #This is a mock for getting mentors from a db
-      $scope.mentors = [{
-          email: "dude@duders.com"
-          expertise: "expert in duding"
-          name: "dude"
-        },
-        {
-          email: "dudette@duders.com"
-          expertise: "expert in dudettes"
-          name: "dudette"
-        }
-        ]
+  $scope.mentors = Mentor.getMentors()
 
-      $scope.addMentor = ->
-        if $scope.newMentor
-          newMentor =
-            name: $scope.newMentor.name
-            email: $scope.newMentor.email
-            expertise: $scope.newMentor.expertise
-            
-          $scope.mentors.push newMentor
-        #This is a mock for writing to our mongodb
-  ]
+  $scope.addMentor = ->
+    if $scope.newMentor
+      #create duplicate object for adding to list
+      newMentor =
+        name: $scope.newMentor.name
+        email: $scope.newMentor.email
+        expertise: $scope.newMentor.expertise
+
+      # Add Mentor via restful route
+      Mentor.addMentor(newMentor).$promise.then ->
+        # TODO: Add Success Message
+        $scope.mentors.push newMentor
+        $scope.newMentor = {}
+      .catch ->
+        # TODO: Add Failure Message

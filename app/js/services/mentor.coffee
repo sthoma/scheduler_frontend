@@ -10,5 +10,11 @@
 angular.module('tandemApp')
   .factory 'Mentor', ($resource, CONST) ->
   	#This will be more fleshed out when backend API is defined for mentors
-    return $resource CONST.API_URL+'mentors/:mentor_id',
-      mentor_id: '@id'
+    return $resource CONST.API_URL+'mentors/:id',
+        {id: '@id'},
+        {
+          'getMentors': {method: 'GET',  isArray: true},
+          'getMentor': {method: 'GET'},
+          'addMentor': {method: 'POST'}
+        }
+

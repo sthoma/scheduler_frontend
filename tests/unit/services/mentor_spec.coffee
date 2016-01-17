@@ -7,7 +7,6 @@ describe 'Service: Mentor', ->
 
   Mentor = {}
 
-
   # Build Mock for API call before each test
   beforeEach inject ($injector, _CONST_) ->
     $httpBackend = $injector.get('$httpBackend')
@@ -39,7 +38,7 @@ describe 'Service: Mentor', ->
 
 
   it 'should be able to retrieve mentors', ->
-    Mentor.query().$promise.then (data)->
+    Mentor.getMentors().$promise.then (data)->
       expect(data[0].name).toEqual "Mentor 1"
       expect(data.length).toBe 2
 
