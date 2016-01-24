@@ -20,6 +20,7 @@
     "angular-route": "~1.4.8",
     "bootstrap-sass": "~3.3.5",
     "angular-resource": "~1.4.8",
-    "angular-mocks": "~1.4.8"
+    "angular-mocks": "~1.4.8",
+    "font-awesome": "~4.5.0"
   }
 }
