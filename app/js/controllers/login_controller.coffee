@@ -1,21 +1,22 @@
 'use strict'
 
+###*
+# @ngdoc controller
+# @name tandemApp.controller:LoginController
+# @description
+# # login
+# Controller for logging into the Tandem frontend app.
+###
 angular.module 'tandemApp'
 
 .controller 'LoginController', ($scope, $rootScope, Session, AuthToken) ->
   $rootScope.bodyLayout = 'login'
   $scope.title = "Login"
 
-  $scope.login = ->
-    if $scope.login
-      newLogin =
-        login: $scope.login.email
-        password: $scope.login.password
+  $scope.sendCredentials = ->
+    if $scope.cred
+      credentials =
+        username: $scope.cred.email
+        password: $scope.cred.password
 
-      Login.save(newLogin).$promise.then ->
-        # TODO: Flash success
-        # TODO: Store cookie
-        $scope.login = {}
-      .catch ->
-        $scope.login = {}
-        # TODO: Flash failure
+      Session.login(credentials)

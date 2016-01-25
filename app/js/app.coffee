@@ -15,6 +15,9 @@ angular.module 'tandemApp', [
     .when "/login",
       templateUrl: "./views/login.html",
       controller: "LoginController"
+    .when "/logout",
+      template: "",
+      controller: "LogoutController"
     .when "/add-mentor",
       templateUrl: "./views/add-mentor.html",
       controller: "MentorController"
