@@ -1,0 +1,32 @@
+body.login {
+  background-color: $gray-lighter;
+
+  & header {
+    display: none;
+  }
+}
+
+
+.login-form-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10%;
+}
+
+.login-form {
+  border-radius: 2px;
+  background-color: white;
+  padding: 15px;
+
+  & form {
+    padding: 15px;
+  }
+
+  & h1 {
+    color: $purple-darker;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+}

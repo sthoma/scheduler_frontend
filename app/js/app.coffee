@@ -12,7 +12,7 @@ angular.module 'tandemApp', [
     .when "/",
       templateUrl: "./views/home.html",
       controller: "MainController"
-    .when "/test",
+    .when "/login",
       templateUrl: "./views/login.html",
       controller: "LoginController"
     .when "/add-mentor",
