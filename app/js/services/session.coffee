@@ -8,14 +8,15 @@
  # Factory for authentication
 ###
 angular.module('tandemApp')
-  .factory 'Session', ($http, $location, AuthToken, CONST) ->
+  .factory 'Session', ($http, $location, $q, AuthToken, CONST) ->
     onSuccess = (res) ->
       AuthToken.setToken(res.data.token)
       $location.url '/'
 
     onFailure = (error) ->
       AuthToken.setToken()
-      $location.url 'login'
+      $q.reject(error)
+      #$location.url 'login'
 
     {
       login: (creds) ->

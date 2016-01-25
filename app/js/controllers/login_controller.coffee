@@ -19,4 +19,6 @@ angular.module 'tandemApp'
         username: $scope.cred.email
         password: $scope.cred.password
 
-      Session.login(credentials)
+      Session.login(credentials).catch ->
+        $scope.cred.password = ''
+        $scope.loginError = true
