@@ -2,7 +2,8 @@
 
 angular.module 'tandemApp'
 
-.controller 'LoginController', ($scope, Login) ->
+.controller 'LoginController', ($scope, $rootScope, Session, AuthToken) ->
+  $rootScope.bodyLayout = 'login'
   $scope.title = "Login"
 
   $scope.login = ->
