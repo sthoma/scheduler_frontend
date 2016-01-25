@@ -23,3 +23,10 @@ angular.module 'tandemApp', [
       controller: "MainController"
     .otherwise
       redirectTo: '/'
+
+.config ($locationProvider) ->
+  $locationProvider.html5Mode(true)
+
+
+.config ($httpProvider) ->
+  $httpProvider.interceptors.push('authIntercepter')
