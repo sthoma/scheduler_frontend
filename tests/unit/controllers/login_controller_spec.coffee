@@ -5,31 +5,31 @@ describe 'Controller: LoginController', ->
   beforeEach module 'tandemApp'
 
   controller = {}
-  httpBackend = {}
   scope = {}
+  _mockSession = {}
+  _mockPromise = {}
 
-  beforeEach inject ($controller, $rootScope, $q, $httpBackend) ->
+  expectedResponse = {}
+
+  beforeEach inject ($controller, $rootScope) ->
     scope = $rootScope
-    httpBackend = $httpBackend
     controller = $controller
+    _mockSession = login: -> _mockPromise
 
-
-  afterEach ->
-    httpBackend.verifyNoOutstandingExpectation()
-    httpBackend.verifyNoOutstandingRequest()
-
-
-  describe 'should check credentials successfully', ->
+  describe 'should check invalid credentials', ->
     beforeEach ->
-      httpBackend.expectPOST('http://localhost:3000/api/v1/login').respond(401, null);
+      _mockPromise =
+        catch: (errorFn) ->
+          errorFn expectedResponse
 
-      LoginController = controller 'LoginController',
+        error: (fn) ->
+          fn expectedResponse
+
+      controller 'LoginController',
         $scope: scope
+        Session: _mockSession
 
-    afterEach ->
-      httpBackend.flush()
-
-    it 'should flash error if given incorrect credentials', ->
+    it 'should show login error', ->
       scope.cred =
         username: 'admin'
         password: 'swordfish'
