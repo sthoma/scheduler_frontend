@@ -22,3 +22,29 @@ angular.module 'tandemApp'
         $scope.newMentor = {}
       .catch ->
         # TODO: Add Failure Message
+
+  $scope.setCurrentMentor = (index)->
+    current = $scope.mentors[index]
+    $scope.currentMentor = {index: index}
+    angular.forEach current, (value, key) ->
+      $scope.currentMentor[key] = value
+
+  $scope.saveMentor = ->
+    if $scope.currentMentor
+      # Build a list of updated values
+      mentor = $scope.mentors[$scope.currentMentor.index]
+      updatedValues = {}
+      angular.forEach $scope.currentMentor, (value, key) ->
+        if key != 'index'
+          updatedValues[key] = $scope.currentMentor[key]
+
+      # Update Mentor via restful route
+      Mentor.updateMentor(updatedValues).$promise.then ->
+        # TODO: add success message
+        angular.forEach updatedValues, (value, key) ->
+          if key != "_id"
+            mentor[key] = updatedValues[key]
+      .catch ->
+        # TODO: Add failure message
+
+
