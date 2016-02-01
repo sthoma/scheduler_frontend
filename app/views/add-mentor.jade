@@ -1,0 +1,31 @@
+article.container
+  h1#title {{title}}
+  form.form-horizontal(ng-submit='addMentor()')
+    .form-group
+      label.col-sm-2.control-label(for='inputEmail3') Mentor Name
+      .col-sm-10
+        input#mentor-name.form-control(ng-model='newMentor.name', type='text', placeholder='Name')
+    .form-group
+      label.col-sm-2.control-label(for='inputEmail3') Email Address
+      .col-sm-10
+        input#mentor-email.form-control(ng-model='newMentor.email', type='email', placeholder='Email')
+    .form-group
+      label.col-sm-2.control-label(for='inputPassword3') Expertise
+      .col-sm-10
+        textarea#mentor-description.form-control(ng-model='newMentor.expertise', placeholder='What this mentor can help with...')
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        button.btn.btn-default(type='submit') Add Mentor
+  .panel.panel-default
+    .panel-heading Current Mentors
+    table.table.table-hover
+      thead
+        tr
+          th Name
+          th Email
+          th Expertise
+      tbody
+        tr(ng-repeat='mentor in mentors')
+          td {{mentor.name}}
+          td {{mentor.email}}
+          td {{mentor.expertise}}

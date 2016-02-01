@@ -1,0 +1,40 @@
+doctype html
+html(lang='en', ng-app='tandemApp')
+  head
+    meta(charset='utf-8')
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title Be Tandem
+    // bower:css
+    // endbower
+    // bower:js
+    // endbower
+    // app js
+    script(src='js/app.js')
+    script(src='js/controllers/main_controller.js')
+    script(src='js/controllers/mentor_controller.js')
+    script(src='js/services/mentor.js')
+    // app css
+    link(rel='stylesheet', type='text/css', href='css/main.css')
+  body
+    header(role='banner')
+      nav.navbar.navbar-default
+        .container-fluid
+          // Brand and toggle get grouped for better mobile display
+          .navbar-header
+            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1', aria-expanded='false')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-brand(href='#') Tandem Schduler
+          // Collect the nav links, forms, and other content for toggling
+          #bs-example-navbar-collapse-1.collapse.navbar-collapse
+            ul.nav.navbar-nav.navbar-right
+              li
+                a(href='#/add-mentor') Add Mentor
+              li
+                a(href='#/add-team') Add Team
+          // /.navbar-collapse
+        // /.container-fluid
+    section(ng-view='')
