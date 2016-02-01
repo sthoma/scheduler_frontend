@@ -6,6 +6,9 @@
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+@import "partials/header";
+@import "partials/sidebar";
+
 html{
   color: $primary-text;
 }

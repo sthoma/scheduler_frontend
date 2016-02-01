@@ -14,6 +14,7 @@ var gulp       = require('gulp'),
   clean        = require('gulp-clean'),
   livereload   = require('gulp-livereload'),
   coffee       = require('gulp-coffee'),
+  jade         = require('gulp-jade'),
   gutil        = require('gulp-util'),
   wiredep      = require('wiredep').stream,
   karma        = require('karma').Server,
@@ -80,16 +81,24 @@ gulp.task('sass', function(){
 
 });
 
-// Pull in html files
-gulp.task('copy-html', function () {
-  gulp.src(['./app/**/*.html', '!./app/index.html'])
+gulp.task('jade', function(){
+  var options = {pretty: config.prod? false : true}
+  gulp.src(['./app/**/*.jade', '!./app/index.jade', '!./app/views/includes/**/*.jade'])
+    .pipe(jade(options))
     .pipe(gulp.dest(config.buildDir));
   // Inject bower depenencies
-  gulp.src('./app/index.html')
+  gulp.src('./app/index.jade')
+    .pipe(jade(options))
     .pipe(wiredep({
       ignorePath:  /\.\.\//,
     }))
     .pipe(gulp.dest(config.buildDir));
+});
+
+// Pull in html files
+gulp.task('copy-img', function () {
+  gulp.src('./app/images/**/*')
+    .pipe(gulp.dest(config.buildDir + '/images'));
 });
 
 // Setup bower dependencies
@@ -145,12 +154,12 @@ gulp.task('livereload', function() {
 gulp.task('watch', function() {
   if(config.serve){
     livereload.listen();
-    gulp.watch(['app/**/*.html', 'app/js/**/*.coffee', 'app/sass/**/*.scss'], ['livereload', 'lint', 'coffee', 'sass', 'copy-html']);
+    gulp.watch(['app/**/*.jade', 'app/js/**/*.coffee', 'app/sass/**/*.scss'], ['livereload', 'lint', 'coffee', 'sass', 'jade', 'copy-img']);
   }
 });
 
 
 // default task
 gulp.task('default',
-  ['lint', 'coffee', 'sass', 'copy-html', 'bower', 'serve', 'watch']
+  ['lint', 'coffee', 'sass', 'jade', 'copy-img', 'bower', 'serve', 'watch']
 );
