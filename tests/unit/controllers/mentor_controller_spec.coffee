@@ -34,6 +34,13 @@ describe 'Controller: MentorController', ->
         $promise: deferred.promise
       }
 
+    MentorMock.updateMentor = ->
+      deferred = $q.defer()
+      deferred.resolve('Success')
+      return {
+        $promise: deferred.promise
+      }
+
     MentorController = $controller 'MentorController',
       $scope: scope
 
@@ -50,3 +57,15 @@ describe 'Controller: MentorController', ->
     scope.$digest()
 
     expect(scope.mentors.length).toBe list_length+1
+
+  it 'should be able to edit a mentor', ->
+    scope.currentMentor = scope.mentors[0]
+    scope.currentMentor.index = 0
+    scope.currentMentor.name = "Edited Mentor"
+    scope.saveMentor()
+
+    # Ensure all promises complete
+    scope.$digest()
+
+    expect(scope.mentors[0].name).toEqual "Edited Mentor"
+
