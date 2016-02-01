@@ -4,36 +4,40 @@ describe 'Controller: LoginController', ->
   # load the controller's module
   beforeEach module 'tandemApp'
 
-  controller = {}
+  LoginController = {}
   scope = {}
-  _mockSession = {}
-  _mockPromise = {}
+  SessionMock = {}
 
   expectedResponse = {}
 
-  beforeEach inject ($controller, $rootScope) ->
-    scope = $rootScope
-    controller = $controller
-    _mockSession = login: -> _mockPromise
+  beforeEach module ($provide)->
+    $provide.value('Session', SessionMock)
+    return
+
+  beforeEach inject ($rootScope, $httpBackend) ->
+    scope = $rootScope.$new()
+    # needed because login templates are called using angular-ui-bootstrap
+    $httpBackend.whenGET("views/login.html").respond("login");
+    $httpBackend.expectGET("views/login.html")
 
   describe 'should check invalid credentials', ->
-    beforeEach ->
-      _mockPromise =
-        catch: (errorFn) ->
-          errorFn expectedResponse
+    beforeEach inject ($controller, $q) ->
 
-        error: (fn) ->
-          fn expectedResponse
+      # Mock call to add Mentor to server
+      SessionMock.login = (credentials) ->
+        deferred = $q.defer()
+        deferred.reject({error:"error"})
+        return deferred.promise
 
-      controller 'LoginController',
+      LoginController = $controller 'LoginController',
         $scope: scope
-        Session: _mockSession
 
     it 'should show login error', ->
-      scope.cred =
+      form = {}
+      form.cred =
         username: 'admin'
         password: 'swordfish'
-      scope.sendCredentials()
+      scope.sendCredentials(form)
 
       scope.$digest()
 
