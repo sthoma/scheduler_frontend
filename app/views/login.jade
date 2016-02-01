@@ -1,15 +1,17 @@
-.login-form-wrapper
-  .login-form
-    h1 Tandem
-    form(ng-submit='sendCredentials()')
-      .form-group
-        .input-group
-          input#input-email.form-control(ng-model='cred.email', type='text', placeholder='email')
-      .form-group
-        .input-group
-          input#input-password.form-control(ng-model='cred.password', type='password', placeholder='password')
-      button.btn.btn-large.btn-primary.pull-right(type='submit')
-        | Submit
-        i.fa.fa-check
-  .login-form-error(ng-show='loginError')
-    span Incorrect username or password
+form#test(ng-submit='sendCredentials(this)')
+  .modal-content
+    .modal-body
+      .login-form-wrapper
+        .login-form
+          h1 Log In
+          .form-group
+            .input-group
+              input#input-email.form-control(ng-model='cred.email', type='text', placeholder='email')
+          .form-group
+            .input-group
+              input#input-password.form-control(ng-model='cred.password', type='password', placeholder='password')
+        .login-form-error(ng-show='loginError')
+          span Incorrect username or password
+    .modal-footer
+      button.btn.btn-primary(type='submit') Sign in
+

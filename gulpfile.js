@@ -6,6 +6,7 @@
 
 var gulp       = require('gulp'),
   connect      = require('gulp-connect'),
+  history      = require('connect-history-api-fallback'),
   coffeelint   = require('gulp-coffeelint'),
   stylish      = require('coffeelint-stylish'),
   uglify       = require('gulp-uglify'),
@@ -141,7 +142,10 @@ gulp.task('serve', function () {
     gutil.log("Running server from " + config.buildDir);
     connect.server({
       root: config.buildDir,
-      port: config.prod ? 9999 : 8888
+      port: config.prod ? 9999 : 8888,
+      middleware: function(connect, opt) {
+        return [ history() ];
+      }
     });
   }
 });
