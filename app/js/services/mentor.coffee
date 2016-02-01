@@ -15,7 +15,8 @@ angular.module('tandemApp')
         {
           'getMentors': {method: 'GET',  isArray: true},
           'getMentor': {method: 'GET'},
-          'addMentor': {method: 'POST'}
-          'updateMentor': {method: 'post'}
+          'addMentor': {method: 'POST'},
+          'updateMentor': {method: 'POST'},
+          'deleteMentor': {method: 'DELETE'}
         }
 

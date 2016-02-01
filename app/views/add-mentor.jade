@@ -32,6 +32,7 @@ article
           td {{mentor.expertise}}
           td
             button.btn.btn-primary(data-toggle="modal", data-target="#editMentor", ng-click="setCurrentMentor($index)") edit
+            button.btn.btn-danger(data-toggle="modal", data-target="#deleteMentor", ng-click="deleteMentor($index)") delete
 
   #editMentor.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel')
     .modal-dialog(role='document')
