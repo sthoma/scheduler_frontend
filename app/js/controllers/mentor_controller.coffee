@@ -6,7 +6,6 @@ angular.module 'tandemApp'
   $scope.title = "Mentors"
 
   $scope.mentors = Mentor.getMentors()
-
   $scope.addMentor = ->
     if $scope.newMentor
       #create duplicate object for adding to list
@@ -25,6 +24,7 @@ angular.module 'tandemApp'
 
   $scope.setCurrentMentor = (index)->
     current = $scope.mentors[index]
+    # console.log current
     $scope.currentMentor = {index: index}
     angular.forEach current, (value, key) ->
       $scope.currentMentor[key] = value
@@ -46,5 +46,23 @@ angular.module 'tandemApp'
             mentor[key] = updatedValues[key]
       .catch ->
         # TODO: Add failure message
+
+  $scope.deleteMentor = (index) ->
+    x = window.confirm('Are you sure you want to delete this mentor?')
+    if x
+      mentor = $scope.mentors[index]
+      mentorId = id: mentor._id
+
+      Mentor.deleteMentor(mentorId).$promise.then ->
+        # TODO: add success message
+        $scope.mentors.pop mentor
+      .catch ->
+
+
+
+
+      
+
+        
 
 
