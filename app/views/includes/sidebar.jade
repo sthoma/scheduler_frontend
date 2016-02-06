@@ -1,18 +1,24 @@
 div(ng-controller="NavController")
-  ul.nav.nav-sidebar
-    .nav-title Navigation
-    li(ng-class="isActive('/')")
-      a(href="#/") Dashboard
-    li
-      a(href="#/") Programs
-    li(ng-class="isActive('/add-mentor')")
-      a(href="#/add-mentor") Mentors
-    li
-      a(href="#/") Mentees
+  //-ul.nav.nav-sidebar
+    //-.nav-title Navigation
+    //-li(ng-class="isActive('/')")
+      //-a(href="#/") Dashboard
+    //-li
+      //-a(href="#/") Programs
+    //-li(ng-class="isActive('/add-mentor')")
+      //-a(href="#/add-mentor") Mentors
+    //-li
+      //-a(href="#/") Mentees
 
   ul.nav.nav-sidebar
     .nav-title Current Program
     li
-      a(href="#/") Room Availability
+      a(href="/") Getting Started
     li
-      a(href="#/") Gather Availability
+      a(href="/") Room Availability
+    li
+      a(href="/") Mentor Availability
+    li
+      a(href="/") Mentee Availability
+    li
+      a(href="/") Submit Availability
