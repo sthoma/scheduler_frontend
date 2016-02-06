@@ -25,6 +25,9 @@ angular.module 'tandemApp', [
     .when "/add-team",
       templateUrl: "./views/home.html",
       controller: "MainController"
+    .when "/schedule-rooms",
+      templateUrl: "./views/room-availability.html",
+      controller: "RoomController"
     .otherwise
       redirectTo: '/'
 
