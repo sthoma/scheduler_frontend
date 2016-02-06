@@ -22,8 +22,8 @@ angular.module 'tandemApp'
           # TODO: Error message
 
     $scope.deleteRoom = (index) ->
-      x = window.confirm('Are you sure you want to delete this room?')
-      if x
+      confirm = window.confirm('Are you sure you want to delete this room?')
+      if confirm 
         room = $scope.rooms[index]
         roomId = id: room._id
 
