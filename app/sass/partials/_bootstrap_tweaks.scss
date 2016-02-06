@@ -1,0 +1,31 @@
+/* --- FORMS --- */
+.input-group {
+  & input {
+    background-color: $gray-lighter;
+    color: $gray-dark;
+    border-radius: 2px;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+
+    &:focus {
+      outline: none;
+      border-color: $purple-darker;
+      box-shadow: none;
+    }
+  }
+}
+
+/* --- BUTTONS --- */
+.btn {
+  border-radius: 2px !important;
+}
+
+.btn-primary {
+  background-color: $purple !important;
+  border-color: $purple !important;
+
+  &:hover {
+    background-color: $purple-dark !important;
+    border-color: $purple-dark !important;
+  }
+}

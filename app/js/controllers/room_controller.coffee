@@ -23,7 +23,7 @@ angular.module 'tandemApp'
 
     $scope.deleteRoom = (index) ->
       confirm = window.confirm('Are you sure you want to delete this room?')
-      if confirm 
+      if confirm
         room = $scope.rooms[index]
         roomId = id: room._id
 

@@ -2,8 +2,6 @@
 
 angular.module 'tandemApp'
 
-.controller 'MainController', [
-    '$scope',
-    ($scope) ->
-      $scope.hello = "Hello World!"
-  ]
+.controller 'MainController', ($scope, $rootScope) ->
+  $rootScope.bodyLayout = ''
+  $scope.hello = "Hello World!"

@@ -2,7 +2,8 @@
 
 angular.module 'tandemApp'
 
-.controller 'MentorController', ($scope, Mentor) ->
+.controller 'MentorController', ($scope, $rootScope, Mentor) ->
+  $rootScope.bodyLayout = ''
   $scope.title = "Mentors"
 
   $scope.mentors = Mentor.getMentors()

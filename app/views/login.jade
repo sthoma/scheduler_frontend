@@ -1,0 +1,17 @@
+form#test(ng-submit='sendCredentials(this)')
+  .modal-content
+    .modal-body
+      .login-form-wrapper
+        .login-form
+          h1 Log In
+          .form-group
+            .input-group
+              input#input-email.form-control(ng-model='cred.email', type='text', placeholder='email')
+          .form-group
+            .input-group
+              input#input-password.form-control(ng-model='cred.password', type='password', placeholder='password')
+        .login-form-error(ng-show='loginError')
+          span Incorrect username or password
+    .modal-footer
+      button.btn.btn-primary(type='submit') Sign in
+

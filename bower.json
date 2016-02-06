@@ -7,7 +7,7 @@
   ],
   "license": "ISC",
   "moduleType": [],
-  "homepage": "",
+  "homepage": "https://github.com/thejinxters/scheduler_frontend",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -20,6 +20,9 @@
     "angular-route": "~1.4.8",
     "bootstrap-sass": "~3.3.5",
     "angular-resource": "~1.4.8",
-    "angular-mocks": "~1.4.8"
-  }
+    "angular-mocks": "~1.4.8",
+    "font-awesome": "~4.5.0",
+    "angular-bootstrap": "~1.1.2"
+  },
+  "private": true
 }
