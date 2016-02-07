@@ -15,8 +15,9 @@ angular.module 'tandemApp'
         Room.addRoom(newRoom).$promise.then (resRoom) ->
           # TODO: add success message
           $scope.rooms.push resRoom
+          $scope.newRoom = {}
 
-          $scope.rooms.push newRoom
+        .catch ->
           # TODO: Error message
 
     $scope.deleteRoom = (index) ->
