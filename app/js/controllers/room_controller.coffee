@@ -12,13 +12,12 @@ angular.module 'tandemApp'
           name: $scope.newRoom.name
           calendarUrl: $scope.newRoom.calendarUrl
 
-        Room.addRoom(newRoom).$promise.then ->
+        Room.addRoom(newRoom).$promise.then (resRoom) ->
           # TODO: add success message
-          $scope.rooms.push newRoom
+          $scope.rooms.push resRoom
           $scope.newRoom = {}
 
         .catch ->
-          $scope.rooms.push newRoom
           # TODO: Error message
 
     $scope.deleteRoom = (index) ->
