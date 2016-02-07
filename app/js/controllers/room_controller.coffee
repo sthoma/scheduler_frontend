@@ -12,18 +12,16 @@ angular.module 'tandemApp'
           name: $scope.newRoom.name
           calendarUrl: $scope.newRoom.calendarUrl
 
-        Room.addRoom(newRoom).$promise.then ->
+        Room.addRoom(newRoom).$promise.then (resRoom) ->
           # TODO: add success message
-          $scope.rooms.push newRoom
-          $scope.newRoom = {}
+          $scope.rooms.push resRoom
 
-        .catch ->
           $scope.rooms.push newRoom
           # TODO: Error message
 
     $scope.deleteRoom = (index) ->
       confirm = window.confirm('Are you sure you want to delete this room?')
-      if confirm 
+      if confirm
         room = $scope.rooms[index]
         roomId = id: room._id
 
