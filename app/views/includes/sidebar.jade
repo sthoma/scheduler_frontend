@@ -11,15 +11,25 @@ div(ng-controller="NavController")
     //-li
       //-a(href="#/") Mentees
 
-  ul.nav.nav-sidebar
-    .nav-title Current Program
-    li
-      a(href="/") Getting Started
-    li
-      a(href="/schedule-rooms") Room Availability
-    li
-      a(href="/") Mentor Availability
-    li
-      a(href="/") Mentee Availability
-    li
-      a(href="/") Submit Availability
+  div.sidebar-container.sidebar-topper
+    a(href="/")
+      h1 tandem
+  div.sidebar-container.sidebar-user
+    a(href="#" data-toggle="dropdown" aria=haspopup="true" aria-expanded="false").dropdown-toggle
+      h5 worldsbestfacilitator@gmail.com
+      i.fa.fa-chevron-down
+    div.dropdown-menu
+      a(href="/logout") Logout
+  div.sidebar-container.sidebar-links
+    ul.nav.nav-sidebar
+      .nav-title Current Program
+      li
+        a(href="/") Getting Started
+      li
+        a(href="/schedule-rooms") Room Availability
+      li
+        a(href="/") Mentor Availability
+      li
+        a(href="/") Mentee Availability
+      li
+        a(href="/") Submit Availability
