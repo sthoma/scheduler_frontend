@@ -8,7 +8,7 @@
  # Factory for interacting with Mentors.
 ###
 angular.module('tandemApp')
-  .factory 'Mentor', ($resource, CONST) ->
+  .factory 'MentorAvailability', ($resource, CONST) ->
     return $resource CONST.API_URL+'mentors/:id',
         {id: '@_id'},
         {

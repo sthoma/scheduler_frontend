@@ -2,17 +2,17 @@
 
 angular.module 'tandemApp'
 
-  .controller 'MentorAvailabilityController', ($scope, Mentor) ->
+  .controller 'MentorAvailabilityController', ($scope, MentorAvailability) ->
     $scope.title = "Mentors"
 
-    $scope.mentors = Mentor.getMentors()
+    $scope.mentors = MentorAvailability.getMentors()
     $scope.addMentor = ->
       if $scope.newMentor
         newMentor =
           name: $scope.newMentor.name
           calendarUrl: $scope.newMentor.calendarUrl
 
-        Mentor.addMentor(newMentor).$promise.then (resMentor) ->
+        MentorAvailability.addMentor(newMentor).$promise.then (resMentor) ->
           # TODO: add success message
           $scope.mentors.push resMentor
           $scope.newMentor = {}
@@ -27,7 +27,7 @@ angular.module 'tandemApp'
         mentor = $scope.mentors[index]
         mentorId = id: mentor._id
 
-        Mentor.deleteMentor(mentorId).$promise.then ->
+        MentorAvailability.deleteMentor(mentorId).$promise.then ->
           # TODO: add success message
           $scope.mentors.pop mentor
         .catch ->
