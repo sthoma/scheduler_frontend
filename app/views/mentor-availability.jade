@@ -1,0 +1,30 @@
+article
+  h1#title {{title}}
+  .panel.panel-default
+    .panel-heading Current Mentor Calendars
+    table.table.table-hover
+      thead
+        tr
+          th Name
+          th Calendar link
+          th Delete
+      tbody
+        tr(ng-repeat='mentor in mentors')
+          td {{mentor.name}}
+          td {{mentor.calendarUrl}}
+          td
+            button.btn.btn-danger(data-toggle="modal", data-target="#deleteMentor", ng-click="deleteMentor($index)") delete
+
+  form.form-horizontal(ng-submit='addMentor()')
+    .form-group
+      label.col-sm-2.control-label(for='inputName') Mentor Name
+      .col-sm-10
+        input#mentor-name.form-control(ng-model='newMentor.name', type='text', placeholder='Name')
+    .form-group
+      label.col-sm-2.control-label(for='inputUrl') Mentor Calendar Url
+      .col-sm-10
+        input#mentor-calendar.form-control(ng-model='newMentor.calendarUrl', type='text', placeholder='Url')
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        button.btn.btn-default(type='submit') Add Mentor
+
