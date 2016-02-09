@@ -1,0 +1,43 @@
+article
+  h1#title {{title}}
+
+  .well
+    p The calendar links provided below will be submitted for scheduling.
+    .alert.alert-success(role="alert" ng-show="flash"){{flash}}
+    button.btn-lg.btn-primary(ng-click="submit()", ng-disabled="disableButton") Submit my calendars
+
+
+  .panel.panel-default
+    .panel-heading Room Calendars
+    table.table.table-hover
+      thead
+        tr
+          th Name
+          th Calendar link
+      tbody
+        tr(ng-repeat='room in rooms')
+          td {{room.name}}
+          td {{room.calendarUrl}}
+  .panel.panel-default
+    .panel-heading Mentor Calendars
+    table.table.table-hover
+      thead
+        tr
+          th Name
+          th Calendar link
+      tbody
+        tr(ng-repeat='mentor in mentors')
+          td {{mentor.name}}
+          td {{mentor.calendarUrl}}
+  .panel.panel-default
+    .panel-heading Mentee Calendars
+    table.table.table-hover
+      thead
+        tr
+          th Name
+          th Calendar link
+      tbody
+        tr(ng-repeat='mentee in mentees')
+          td {{mentee.name}}
+          td {{mentee.calendarUrl}}
+
