@@ -22,6 +22,9 @@ angular.module 'tandemApp', [
     .when "/schedule-mentors",
       templateUrl: "./views/mentor-availability.html",
       controller: "MentorAvailabilityController"
+    .when "/schedule-mentees",
+      templateUrl: "./views/mentee-availability.html",
+      controller: "MenteeAvailabilityController"
     .when "/schedule-rooms",
       templateUrl: "./views/room-availability.html",
       controller: "RoomController"

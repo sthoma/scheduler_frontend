@@ -1,0 +1,30 @@
+article
+  h1#title {{title}}
+  .panel.panel-default
+    .panel-heading Current Mentee Calendars
+    table.table.table-hover
+      thead
+        tr
+          th Name
+          th Calendar link
+          th Delete
+      tbody
+        tr(ng-repeat='mentee in mentees')
+          td {{mentee.name}}
+          td {{mentee.calendarUrl}}
+          td
+            button.btn.btn-danger(data-toggle="modal", data-target="#deleteMentee", ng-click="deleteMentee($index)") delete
+
+  form.form-horizontal(ng-submit='addMentee()')
+    .form-group
+      label.col-sm-2.control-label(for='inputName') Mentee Name
+      .col-sm-10
+        input#mentee-name.form-control(ng-model='newMentee.name', type='text', placeholder='Name')
+    .form-group
+      label.col-sm-2.control-label(for='inputUrl') Mentee Calendar Url
+      .col-sm-10
+        input#mentee-calendar.form-control(ng-model='newMentee.calendarUrl', type='text', placeholder='Url')
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        button.btn.btn-default(type='submit') Add Mentee
+
