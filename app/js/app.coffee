@@ -19,24 +19,6 @@ angular.module 'tandemApp', [
     .when "/logout",
       template: "",
       controller: "LogoutController"
-    .when "/schedule-mentors",
-      templateUrl: "./views/mentor-availability.html",
-      controller: "MentorAvailabilityController"
-    .when "/schedule-mentees",
-      templateUrl: "./views/mentee-availability.html",
-      controller: "MenteeAvailabilityController"
-    .when "/schedule-rooms",
-      templateUrl: "./views/room-availability.html",
-      controller: "RoomController"
-    .when "/submit-schedules",
-      templateUrl: "./views/submit-availability.html",
-      controller: "SubmitAvailabilityController"
-    # .when "/add-mentor",
-    #   templateUrl: "./views/add-mentor.html",
-    #   controller: "MentorController"
-    # .when "/add-team",
-    #   templateUrl: "./views/home.html",
-    #   controller: "MainController"
     .otherwise
       redirectTo: '/'
 
