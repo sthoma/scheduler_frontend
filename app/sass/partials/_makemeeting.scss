@@ -1,0 +1,15 @@
+.meeting {
+  h2 {
+    text-transform: uppercase;
+    color: #444;
+    font-weight: 300;
+  }
+  > div > form {
+    padding-left: 15px;
+  }
+
+  .form-inline {
+    padding-bottom: 10px;
+  }
+}
+

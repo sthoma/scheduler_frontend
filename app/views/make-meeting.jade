@@ -1,0 +1,19 @@
+div.meeting
+  div.details
+    h2 The details
+    form.col-lg-8
+      div.form-inline
+        div.form-group
+          input#what.form-control(ng-model="meeting.details.what" placeholder="What")
+        div.form-group
+          input#location.form-control(ng-model="meeting.details.location" placeholder="Where")
+        div.form-group
+          select.form-control(ng-model="meeting.details.duration")
+             option 30 minutes
+             option 1 hour
+             option 1.5 hours
+             option 2 hours
+             option 2.5 hours
+             option 3 hours
+      div.form-group
+          textarea#why.form-control(ng-model="meeting.details.why" placeholder="Why")
