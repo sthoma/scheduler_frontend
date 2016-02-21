@@ -11,7 +11,7 @@ angular.module 'tandemApp', [
 .config ($routeProvider) ->
   $routeProvider
     .when "/",
-      templateUrl: "./views/home.html",
+      templateUrl: "./views/make-meeting.html",
       controller: "MainController"
     .when "/login",
       templateUrl: "./views/blank.html",
