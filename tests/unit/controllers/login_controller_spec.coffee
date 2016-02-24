@@ -20,25 +20,25 @@ describe 'Controller: LoginController', ->
     $httpBackend.whenGET("views/login.html").respond("login");
     $httpBackend.expectGET("views/login.html")
 
-  describe 'should check invalid credentials', ->
-    beforeEach inject ($controller, $q) ->
+  # describe 'should check invalid credentials', ->
+  #   beforeEach inject ($controller, $q) ->
 
-      # Mock call to add Mentor to server
-      SessionMock.login = (credentials) ->
-        deferred = $q.defer()
-        deferred.reject({error:"error"})
-        return deferred.promise
+  #     # Mock call to add Mentor to server
+  #     SessionMock.login = (credentials) ->
+  #       deferred = $q.defer()
+  #       deferred.reject({error:"error"})
+  #       return deferred.promise
 
-      LoginController = $controller 'LoginController',
-        $scope: scope
+  #     LoginController = $controller 'LoginController',
+  #       $scope: scope
 
-    it 'should show login error', ->
-      form = {}
-      form.cred =
-        username: 'admin'
-        password: 'swordfish'
-      scope.sendCredentials(form)
+  #   it 'should show login error', ->
+  #     form = {}
+  #     form.cred =
+  #       username: 'admin'
+  #       password: 'swordfish'
+  #     scope.sendCredentials(form)
 
-      scope.$digest()
+  #     scope.$digest()
 
-      expect(scope.loginError).toBe true
+  #     expect(scope.loginError).toBe true

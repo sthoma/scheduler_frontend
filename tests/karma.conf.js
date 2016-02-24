@@ -17,6 +17,7 @@ module.exports = function(config) {
     '../bower_components/angular-mocks/angular-mocks.js',
     '../bower_components/angular-bootstrap/ui-bootstrap.js',
     '../bower_components/jquery/dist/jquery.js',
+    '../bower_components/satellizer/satellizer.js',
     '../app/**/*.coffee',
     './unit/**/*.coffee'
   ],
