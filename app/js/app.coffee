@@ -4,6 +4,7 @@ angular.module 'tandemApp', [
   'ngRoute'
   'ngResource'
   'ui.bootstrap'
+  'satellizer'
 ]
 .constant "CONST",
   "API_URL": "http://localhost:3000/api/v1/"
@@ -14,7 +15,7 @@ angular.module 'tandemApp', [
       templateUrl: "./views/make-meeting.html",
       controller: "MainController"
     .when "/login",
-      templateUrl: "./views/blank.html",
+      templateUrl: "./views/login.html",
       controller: "LoginController"
     .when "/logout",
       template: "",
@@ -26,11 +27,23 @@ angular.module 'tandemApp', [
   # Enable pretty urls (without '/#')
   $locationProvider.html5Mode(true)
 
-.config ($httpProvider) ->
-  # Add authentication to requests
-  $httpProvider.interceptors.push('authIntercepter')
+.config ($authProvider, CONST) ->
+  # Satelizer Settings
+  $authProvider.storageType = 'localStorage'
 
-.run (AuthToken, $location) ->
+  # Auth Providers
+  $authProvider.google
+    url: CONST.API_URL + "login"
+    access_type: "offline"
+    scope: [
+      'profile'
+      'email'
+      'https://www.googleapis.com/auth/calendar'
+    ]
+    clientId: '249264490300-27p809lag3hg5jhhnaufog8m25i2afhm'+
+    '.apps.googleusercontent.com'
+
+.run ($auth, $location) ->
   # Punt from pageload if no auth present
-  if !AuthToken.getToken()
+  if !$auth.isAuthenticated()
     $location.url('login')

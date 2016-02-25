@@ -9,24 +9,13 @@
 ###
 angular.module 'tandemApp'
 
-.controller 'LoginController',
-  ($scope, $rootScope, $uibModal, Session, AuthToken) ->
+.controller 'LoginController', ($scope, $location, $auth) ->
 
-    # use angular-ui-bootstrap to open the modal
-    modalInstance = $uibModal.open
-      animation: true
-      templateUrl: "views/login.html"
-      size: "md"
-      scope: $scope
-      backdrop: "static"
-    $rootScope.bodyLayout = 'login'
-    $scope.title = "Login"
-
-    $scope.sendCredentials = (form) ->
-      if form.cred
-        credentials =
-          username: form.cred.email
-          password: form.cred.password
-        Session.login(credentials).catch ->
-          form.cred.password = ''
-          $scope.loginError = true
+  $scope.authenticate = (provider) ->
+    $auth.authenticate(provider)
+    .then (response)->
+      # Auth automatically stored in localStorage vi $auth
+      $location.path "/"
+    .catch (response)->
+      # Handle error
+      console.log(response)
