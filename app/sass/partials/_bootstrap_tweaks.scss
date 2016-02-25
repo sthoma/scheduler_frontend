@@ -1,7 +1,7 @@
 /* --- FORMS --- */
-.input-group {
-  & input {
-    background-color: $gray-lighter;
+.form-group {
+  & input,select,textarea {
+    /*background-color: $gray-lighter;*/
     color: $gray-dark;
     border-radius: 2px;
     box-shadow: none;
@@ -9,15 +9,39 @@
 
     &:focus {
       outline: none;
-      border-color: $purple-darker;
+      border-color: $purple-dark;
       box-shadow: none;
     }
+  }
+
+  select:invalid {
+    color: $gray-dark;
   }
 }
 
 /* --- BUTTONS --- */
 .btn {
   border-radius: 2px !important;
+}
+
+button.icon {
+  border: none;
+  background: initial;
+
+  &:focus {
+    outline: none;
+  }
+
+  i {
+    transition: color .2s;
+
+    &.success:hover {
+      color: $brand-success;
+    }
+    &.warn:hover {
+      color: $brand-warning;
+    }
+  }
 }
 
 .btn-primary {

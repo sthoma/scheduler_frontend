@@ -1,19 +1,50 @@
 div.meeting
-  div.details
+  div.col-lg-12.details
     h2 The details
     form.col-lg-8
-      div.form-inline
-        div.form-group
+      div.form-inline.row
+        div.form-group.col-lg-6
           input#what.form-control(ng-model="meeting.details.what" placeholder="What")
         div.form-group
           input#location.form-control(ng-model="meeting.details.location" placeholder="Where")
         div.form-group
-          select.form-control(ng-model="meeting.details.duration")
-             option 30 minutes
-             option 1 hour
-             option 1.5 hours
-             option 2 hours
-             option 2.5 hours
-             option 3 hours
+          select.form-control(ng-model="meeting.details.duration" required)
+             option(value="" disabled selected hidden) How long
+             option(value="30") 30 minutes
+             option(value="60") 1 hour
+             option(value="90") 1.5 hours
+             option(value="120") 2 hours
+             option(value="150") 2.5 hours
+             option(value="180") 3 hours
       div.form-group
           textarea#why.form-control(ng-model="meeting.details.why" placeholder="Why")
+  div.col-lg-12.attendees
+    h2 Who's coming
+    form.form-inline
+      div.form-group.col-lg-5
+        input#email.form-control(ng-model="newEmail" placeholder="Email")
+      div.form-group
+        button.icon(ng-click="addAttendee()" type="submit")
+          i.fa.fa-2x.fa-check-circle.success
+    div.col-lg-12(ng-repeat="attendee in meeting.attendees")
+      //-td {{attendee.name}}
+      div.col-lg-3.col-lg-offset-1 {{attendee.email}}
+      div.col-lg-1
+        button.icon(ng-click="deleteAttendee($index)")
+          i.fa.fa-times-circle.warn
+  div.col-lg-12.when
+    h2 When is it
+    div.calendar.col-lg-12
+      div.day(id="{{day.day_code}}" ng-repeat="day in meeting.schedule.days")
+        span {{day.day_code}}
+        div.times
+          div(selectable class="{{day.morning}}").morning
+            i.fa.fa-4x.fa-sun-o
+          div(selectable class="{{day.afternoon}}").afternoon
+            i.fa.fa-4x.fa-sun-o
+          div(selectable class="{{day.evening}}").evening
+            i.fa.fa-4x.fa-moon-o
+      div.chunks
+        div: span Morning
+        div: span Afternoon
+        div: span Evening

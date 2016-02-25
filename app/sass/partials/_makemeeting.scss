@@ -1,15 +1,122 @@
+body {
+  background-color: $gray-lightest;
+}
+
 .meeting {
   h2 {
     text-transform: uppercase;
-    color: #444;
+    color: $gray-light;
     font-weight: 300;
   }
-  > div > form {
-    padding-left: 15px;
+
+  label {
+    color: $gray-light;
+    text-transform: uppercase;
+    font-weight: 200;
+    font-size: $font-size-small;
   }
 
   .form-inline {
     padding-bottom: 10px;
   }
+
+  #what,#email { // dumb input widths
+    width: 100%;
+  }
+
+  .calendar {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row;
+    flex-flow: row;
+
+    .chunks {
+      flex: 0 1 5%;
+      margin-top: 40px;
+
+      > div {
+        display: table;
+        height: 100px;
+      }
+
+      span {
+        display: table-cell;
+        vertical-align: middle;
+        text-transform: uppercase;
+        font-weight: 200;
+        font-size: $font-size-small;
+        color: $gray-light;
+      }
+    }
+
+    .day {
+      text-align: center;
+      flex: 0 1 18%;
+      padding-right: 2%;
+
+      span {
+        display: inline-block;
+        font-weight: 200;
+        font-size: $font-size-small;
+        color: $gray-light;
+      }
+
+      .times {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 2px;
+        background-color: $gray-lighter;
+        border-radius: 3px;
+
+        > div {
+          position: relative;
+          cursor: pointer;
+          height: 100px;
+          transition: background-color .2s;
+          border: 1px solid $gray-light;
+          border-radius: 3px;
+
+          i {
+            position: relative;
+            top: calc(50% - 30px);
+          }
+
+          &.available:before,&.unavailable:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+          }
+          &.available:before{
+            background-color: transparentize($brand-success, 0.3);
+          }
+
+          &.unavailable:before {
+            background-color: transparentize($brand-danger, 0.3);
+          }
+
+
+          &:not(.unavailable).selected {
+            background-color: darken($gray-lighter, 25%);
+            i:before {
+              content: "\f046"; // checkmark
+            }
+          }
+
+          &:not(:last-child) {
+            margin-bottom: 5px;
+            /*border-bottom: 1px solid $gray-light;*/
+          }
+
+          &:hover {
+            background-color: darken($gray-lighter, 15%);
+          }
+        }
+      }
+    }
+  }
 }
+
 
