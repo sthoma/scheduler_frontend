@@ -3,8 +3,14 @@
 angular.module 'tandemApp', [
   'ngRoute'
   'ngResource'
+  'ngAnimate'
   'ui.bootstrap'
   'satellizer'
+  'oitozero.ngSweetAlert'
+  'inform'
+  'inform-exception'
+  'inform-http-exception'
+  'angular-jwt'
 ]
 .constant "CONST",
   "API_URL": "http://localhost:3000/api/v1/"
@@ -46,4 +52,4 @@ angular.module 'tandemApp', [
 .run ($auth, $location) ->
   # Punt from pageload if no auth present
   if !$auth.isAuthenticated()
-    $location.url('login')
+    $location.url('/login')
