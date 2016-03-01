@@ -40,7 +40,8 @@ body {
       }
 
       span {
-        display: table-cell;
+        width: 100%;
+        display: inline-table;
         vertical-align: middle;
         text-transform: uppercase;
         font-weight: 200;
@@ -89,12 +90,24 @@ body {
             right: 0;
             bottom: 0;
           }
-          &.available:before{
-            background-color: transparentize($brand-success, 0.3);
+          &.available {
+            &:hover {
+              background-color: darken($gray-lighter, 15%);
+            }
+
+            &:before {
+              background-color: transparentize($brand-success, 0.3);
+            }
           }
 
-          &.unavailable:before {
-            background-color: transparentize($brand-danger, 0.3);
+          &.unavailable {
+            border: none;
+            cursor: initial;
+
+            &:before {
+              /*background-color: transparentize($brand-danger, 0.3);*/
+              background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAIhISH1jDA+iLNmzZpGsACMA2IzInNAAgB7tQ2ABqnh4gAAAABJRU5ErkJggg==) repeat;
+            }
           }
 
 
@@ -110,9 +123,6 @@ body {
             /*border-bottom: 1px solid $gray-light;*/
           }
 
-          &:hover {
-            background-color: darken($gray-lighter, 15%);
-          }
         }
       }
     }
