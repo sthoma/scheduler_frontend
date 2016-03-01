@@ -4,9 +4,22 @@ body {
 
 .meeting {
   h2 {
+    display: table;
     text-transform: uppercase;
     color: $gray-light;
     font-weight: 300;
+
+    span {
+      font-size: $font-size-h6;
+      display: table-cell;
+      vertical-align: middle;
+
+      &:before {
+        padding: 10px;
+        content: "|";
+      }
+
+    }
   }
 
   label {
@@ -32,7 +45,7 @@ body {
 
     .chunks {
       flex: 0 1 5%;
-      margin-top: 40px;
+      margin-top: 80px;
 
       > div {
         display: table;
