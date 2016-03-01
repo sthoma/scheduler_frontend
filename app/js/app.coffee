@@ -40,7 +40,8 @@ angular.module 'tandemApp', [
   # Auth Providers
   $authProvider.google
     url: CONST.API_URL + "login"
-    access_type: "offline"
+    optionalUrlParams: ['access_type']
+    accessType: "offline"
     scope: [
       'profile'
       'email'
