@@ -38,19 +38,22 @@ angular.module 'tandemApp'
     $scope.meeting.id = meeting._id
 
   $scope.addAttendee = ->
-    if $scope.newEmail
-      email =
-        meeting_id: $scope.meeting.id,
-        email: $scope.newEmail
+    duplicate = $scope.meeting.attendees.some (elem) ->
+      elem.email == $scope.newEmail
 
-      Attendee.addAttendee(email).$promise.then (attendee) ->
-        #$scope.meeting.attendees.push attendee
-        $scope.meeting.attendees.push email
-        $scope.newEmail = ''
-        inform.add("Added "+email.email, { type: "success" })
-      .catch ->
-        # TODO: Add failure alert
-        inform.add("Unable to add email address", {type: "danger"})
+    if $scope.newEmail and not duplicate
+        email =
+          meeting_id: $scope.meeting.id,
+          email: $scope.newEmail
+
+        Attendee.addAttendee(email).$promise.then (attendee) ->
+          #$scope.meeting.attendees.push attendee
+          $scope.meeting.attendees.push email
+          $scope.newEmail = ''
+          inform.add("Added "+email.email, { type: "success" })
+        .catch ->
+          # TODO: Add failure alert
+          inform.add("Unable to add email address", {type: "danger"})
 
   $scope.deleteAttendee = (index) ->
     SweetAlert.swal {
