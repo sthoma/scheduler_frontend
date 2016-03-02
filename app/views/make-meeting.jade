@@ -8,7 +8,7 @@ div.meeting
         div.form-group
           input#location.form-control(ng-model="meeting.details.location" placeholder="Where")
         div.form-group
-          select#duration.form-control(ng-model="meeting.details.duration" required)
+          select.form-control(ng-model="meeting.details.duration" required)
              option(value="" disabled selected hidden) How long
              option(value="30") 30 minutes
              option(value="60") 1 hour
