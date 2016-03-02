@@ -72,6 +72,7 @@ body {
         display: inline-block;
         font-weight: 200;
         font-size: $font-size-small;
+        text-transform: capitalize;
         color: $gray-light;
       }
 
@@ -87,7 +88,6 @@ body {
           cursor: pointer;
           height: 100px;
           transition: background-color .2s;
-          border: 1px solid $gray-light;
           border-radius: 3px;
 
           i {
@@ -95,7 +95,7 @@ body {
             top: calc(50% - 30px);
           }
 
-          &.available:before,&.unavailable:before {
+          &:before {
             content: "";
             position: absolute;
             top: 0;
@@ -103,19 +103,24 @@ body {
             right: 0;
             bottom: 0;
           }
-          &.available {
-            &:hover {
-              background-color: darken($gray-lighter, 15%);
-            }
 
-            &:before {
-              background-color: transparentize($brand-success, 0.3);
-            }
+          $time-base-color: rgba(65, 94, 101, 0.8);
+          &.morning:before {
+            background-color: adjust-color($time-base-color, $hue: -15, $lightness: 30%);
+          }
+          &.afternoon:before {
+            background-color: adjust-color($time-base-color, $lightness: 17%);
+          }
+          &.evening:before {
+            background-color: $time-base-color;
           }
 
           &.unavailable {
-            border: none;
             cursor: initial;
+
+            i {
+              color: $gray;
+            }
 
             &:before {
               /*background-color: transparentize($brand-danger, 0.3);*/
@@ -123,19 +128,27 @@ body {
             }
           }
 
+          &:not(.unavailable) {
+            &:hover {
+              background-color: darken($gray-lighter, 15%);
+            }
 
-          &:not(.unavailable).selected {
-            background-color: darken($gray-lighter, 25%);
-            i:before {
-              content: "\f046"; // checkmark
+            &.selected {
+              background-color: darken($gray-lighter, 25%);
+              &:before {
+                background-color: transparentize($purple, 0.3);
+              }
+
+              i:before {
+                content: "\f046"; // checkmark
+              }
             }
           }
 
           &:not(:last-child) {
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             /*border-bottom: 1px solid $gray-light;*/
           }
-
         }
       }
     }

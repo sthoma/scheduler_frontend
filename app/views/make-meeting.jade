@@ -40,11 +40,11 @@ div.meeting
       div.day(id="{{day.day_code}}" ng-repeat="day in meeting.schedule")
         span {{day.day_code}}
         div.times
-          div(selectable id="{{day.day_code}}.morning" class="{{day.morning ? 'available' : 'unavailable'}}")
+          div.morning(selectable id="{{day.day_code}}.morning" class="{{day.morning ? 'available' : 'unavailable'}}")
             i.fa.fa-4x.fa-sun-o
-          div(selectable id="{{day.day_code}}.afternoon" class="{{day.afternoon ? 'available' : 'unavailable'}}")
+          div.afternoon(selectable id="{{day.day_code}}.afternoon" class="{{day.afternoon ? 'available' : 'unavailable'}}")
             i.fa.fa-4x.fa-sun-o
-          div(selectable id="{{day.day_code}}.evening" class="{{day.evening ? 'available' : 'unavailable'}}")
+          div.evening(selectable id="{{day.day_code}}.evening" class="{{day.evening ? 'available' : 'unavailable'}}")
             i.fa.fa-4x.fa-moon-o
       div.chunks
         div
