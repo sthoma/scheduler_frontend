@@ -6,33 +6,32 @@ angular.module 'tandemApp'
 ($scope, Meeting, Attendee, inform, SweetAlert) ->
   $scope.meeting = {}
   $scope.meeting.attendees = []
-  $scope.meeting.schedule =
-    days:
-      monday:
-        day_code: 'M',
-        morning: 'available',
-        afternoon: 'available',
-        evening: 'unavailable'
-      tuesday:
-        day_code: 'T',
-        morning: 'available',
-        afternoon: 'unavailable',
-        evening: 'unavailable'
-      wednesday:
-        day_code: 'W',
-        morning: 'available',
-        afternoon: 'available',
-        evening: 'unavailable'
-      thursday:
-        day_code: 'Th',
-        morning: 'unavailable',
-        afternoon: 'available',
-        evening: 'unavailable'
-      friday:
-        day_code: 'F',
-        morning: 'available',
-        afternoon: 'available',
-        evening: 'available'
+  $scope.meeting.schedule = [
+      day_code: 'm',
+      morning: true,
+      afternoon: false,
+      evening: false
+    ,
+      day_code: 't',
+      morning: true,
+      afternoon: false,
+      evening: true
+    ,
+      day_code: 'w',
+      morning: false,
+      afternoon: true,
+      evening: true
+    ,
+      day_code: 'th',
+      morning: true,
+      afternoon: false,
+      evening: false
+    ,
+      day_code: 'f',
+      morning: false,
+      afternoon: false,
+      evening: false
+  ]
 
   Meeting.addMeeting().$promise.then (meeting) ->
     $scope.meeting.id = meeting._id

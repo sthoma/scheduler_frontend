@@ -37,14 +37,14 @@ div.meeting
     h2 When is it
       span.instructions Here are the chunks of time that work for everyone. Choose one, or a few and Tandem will do the rest
     div.calendar.col-lg-12
-      div.day(id="{{day.day_code}}" ng-repeat="day in meeting.schedule.days")
+      div.day(id="{{day.day_code}}" ng-repeat="day in meeting.schedule")
         span {{day.day_code}}
         div.times
-          div(selectable class="{{day.morning}}").morning
+          div(selectable id="{{day.day_code}}.morning" class="{{day.morning ? 'available' : 'unavailable'}}")
             i.fa.fa-4x.fa-sun-o
-          div(selectable class="{{day.afternoon}}").afternoon
+          div(selectable id="{{day.day_code}}.afternoon" class="{{day.afternoon ? 'available' : 'unavailable'}}")
             i.fa.fa-4x.fa-sun-o
-          div(selectable class="{{day.evening}}").evening
+          div(selectable id="{{day.day_code}}.evening" class="{{day.evening ? 'available' : 'unavailable'}}")
             i.fa.fa-4x.fa-moon-o
       div.chunks
         div
