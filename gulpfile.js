@@ -102,6 +102,11 @@ gulp.task('copy-img', function () {
     .pipe(gulp.dest(config.buildDir + '/images'));
 });
 
+gulp.task('copy-font', function () {
+  gulp.src('./app/fonts/**/*')
+    .pipe(gulp.dest(config.buildDir + '/fonts'));
+});
+
 // Setup bower dependencies
 gulp.task('bower', function () {
   var dir = config.buildDir;
@@ -165,5 +170,5 @@ gulp.task('watch', function() {
 
 // default task
 gulp.task('default',
-  ['lint', 'coffee', 'sass', 'jade', 'copy-img', 'bower', 'serve', 'watch']
+  ['lint', 'coffee', 'sass', 'jade', 'copy-img', 'copy-font', 'bower', 'serve', 'watch']
 );

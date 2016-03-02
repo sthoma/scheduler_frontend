@@ -8,7 +8,7 @@ div.meeting
         div.form-group
           input#location.form-control(ng-model="meeting.details.location" placeholder="Where")
         div.form-group
-          select.form-control(ng-model="meeting.details.duration" required)
+          select#duration.form-control(ng-model="meeting.details.duration" required)
              option(value="" disabled selected hidden) How long
              option(value="30") 30 minutes
              option(value="60") 1 hour
@@ -25,13 +25,13 @@ div.meeting
         input#email.form-control(ng-model="newEmail" placeholder="Email")
       div.form-group
         button.icon(ng-click="addAttendee()" type="submit")
-          i.fa.fa-2x.fa-check-circle.success
+          i.icon.icon-2x.icon-check-circle.success
     div.col-lg-12(ng-repeat="attendee in meeting.attendees")
       //-td {{attendee.name}}
       div.col-lg-3.col-lg-offset-1 {{attendee.email}}
       div.col-lg-1
         button.icon(ng-click="deleteAttendee($index)")
-          i.fa.fa-times-circle.warn
+          i.icon.icon-times-circle.warn
   div.col-lg-12.when
     h2 When is it
     div.calendar.col-lg-12
@@ -39,11 +39,11 @@ div.meeting
         span {{day.day_code}}
         div.times
           div(selectable class="{{day.morning}}").morning
-            i.fa.fa-4x.fa-sun-o
+            i.icon.icon-4x.icon-sunrise
           div(selectable class="{{day.afternoon}}").afternoon
-            i.fa.fa-4x.fa-sun-o
+            i.icon.icon-4x.icon-sun
           div(selectable class="{{day.evening}}").evening
-            i.fa.fa-4x.fa-moon-o
+            i.icon.icon-4x.icon-moon
       div.chunks
         div: span Morning
         div: span Afternoon

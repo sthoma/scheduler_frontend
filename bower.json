@@ -21,7 +21,6 @@
     "bootstrap-sass": "~3.3.5",
     "angular-resource": "~1.4.8",
     "angular-mocks": "~1.4.8",
-    "font-awesome": "~4.5.0",
     "angular-bootstrap": "~1.1.2",
     "satellizer": "^0.13.4",
     "angular-inform": "^0.0.18",
