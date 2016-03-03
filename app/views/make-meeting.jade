@@ -8,16 +8,10 @@ div.meeting
         div.form-group
           input#location.form-control(ng-model="meeting.details.location" placeholder="Where")
         div.form-group
-          select.form-control(ng-model="meeting.details.duration" required)
+          select#duration.form-control(ng-model="meeting.details.duration" required)
              option(value="" disabled selected hidden) How long
              option(value="30") 30 minutes
              option(value="60") 1 hour
-             option(value="90") 1.5 hours
-             option(value="120") 2 hours
-             option(value="150") 2.5 hours
-             option(value="180") 3 hours
-      div.form-group
-          textarea#why.form-control(ng-model="meeting.details.why" placeholder="Why")
   div.col-lg-12.attendees
     h2 Who's coming
       span.instructions Enter your guest's emails and we'll grab their availability
@@ -56,3 +50,5 @@ div.meeting
         div
           span Evening
           span 5-8
+  div#submit.col-lg-2.col-lg-offset-10
+    button.btn.btn-lg.btn-primary(ng-click="submitMeeting()") Schedule it
