@@ -73,8 +73,6 @@ angular.module 'tandemApp'
           console.log 'err'
           inform.add("Unable to remove email address", {type: "danger"})
 
-  #$scope.populateCalendar = ->
-
   $scope.submitMeeting = ->
     validateMeetingForm = (meeting) ->
       validDetails = true
