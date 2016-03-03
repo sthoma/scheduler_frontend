@@ -47,12 +47,11 @@ angular.module 'tandemApp'
           email: $scope.newEmail
 
         Attendee.addAttendee(email).$promise.then (attendee) ->
-          #$scope.meeting.attendees.push attendee
+          # TODO: Store attendee info returned from backend
           $scope.meeting.attendees.push email
           $scope.newEmail = ''
           inform.add("Added "+email.email, { type: "success" })
         .catch ->
-          # TODO: Add failure alert
           inform.add("Unable to add email address", {type: "danger"})
 
   $scope.deleteAttendee = (index) ->
