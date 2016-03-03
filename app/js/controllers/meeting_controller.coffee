@@ -3,7 +3,7 @@
 angular.module 'tandemApp'
 
 .controller 'MeetingController',
-($scope, Meeting, Attendee, inform, SweetAlert) ->
+($scope, $location, Meeting, Attendee, inform, SweetAlert) ->
   $scope.meeting = {}
   $scope.meeting.attendees = []
   $scope.meeting.schedule = [
@@ -114,5 +114,6 @@ angular.module 'tandemApp'
       .catch ->
         console.log 'Submission error'
     else
-      inform.add("You need to fill out all of the fields before your meeting can be scheduled.", {type: "danger"})
+      inform.add("You need to fill out all of the fields before your meeting \
+                  can be scheduled.", {type: "danger"})
       console.log 'Form validation failed'
