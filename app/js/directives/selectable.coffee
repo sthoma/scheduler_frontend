@@ -25,15 +25,19 @@ angular.module 'tandemApp'
     if idx != -1
       items.splice idx, 1
 
-  setActive = (elem) ->
-    if !elem.hasClass 'unavailable'
-      angular.forEach items, (el) ->
-        el.removeClass TOGGLE_CLASS
+  toggleActive = (elem) ->
+    if elem.hasClass TOGGLE_CLASS
+      elem.removeClass TOGGLE_CLASS
+
+    else if !elem.hasClass 'unavailable'
+      # Uncomment to limit selection to one element
+      #angular.forEach items, (el) ->
+        #el.removeClass TOGGLE_CLASS
       elem.addClass TOGGLE_CLASS
 
   selectLink = (scope, elem) ->
     onClick = ->
-      setActive elem
+      toggleActive elem
 
     onDestroy = ->
       rmElement elem

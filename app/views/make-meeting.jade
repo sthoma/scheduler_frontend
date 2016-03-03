@@ -20,6 +20,7 @@ div.meeting
           textarea#why.form-control(ng-model="meeting.details.why" placeholder="Why")
   div.col-lg-12.attendees
     h2 Who's coming
+      span.instructions Enter your guest's emails and we'll grab their availability
     form.form-inline
       div.form-group.col-lg-5
         input#email.form-control(ng-model="newEmail" placeholder="Email")
@@ -34,17 +35,24 @@ div.meeting
           i.fa.fa-times-circle.warn
   div.col-lg-12.when
     h2 When is it
+      span.instructions Here are the chunks of time that work for everyone. Choose one, or a few and Tandem will do the rest
     div.calendar.col-lg-12
-      div.day(id="{{day.day_code}}" ng-repeat="day in meeting.schedule.days")
+      div.day(id="{{day.day_code}}" ng-repeat="day in meeting.schedule")
         span {{day.day_code}}
         div.times
-          div(selectable class="{{day.morning}}").morning
+          div.morning(selectable id="{{day.day_code}}.morning" class="{{day.morning ? 'available' : 'unavailable'}}")
             i.fa.fa-4x.fa-sun-o
-          div(selectable class="{{day.afternoon}}").afternoon
+          div.afternoon(selectable id="{{day.day_code}}.afternoon" class="{{day.afternoon ? 'available' : 'unavailable'}}")
             i.fa.fa-4x.fa-sun-o
-          div(selectable class="{{day.evening}}").evening
+          div.evening(selectable id="{{day.day_code}}.evening" class="{{day.evening ? 'available' : 'unavailable'}}")
             i.fa.fa-4x.fa-moon-o
       div.chunks
-        div: span Morning
-        div: span Afternoon
-        div: span Evening
+        div
+          span Morning
+          span 8-12
+        div
+          span Afternoon
+          span 12-5
+        div
+          span Evening
+          span 5-8
