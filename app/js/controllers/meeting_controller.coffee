@@ -73,6 +73,46 @@ angular.module 'tandemApp'
           console.log 'err'
           inform.add("Unable to remove email address", {type: "danger"})
 
-  $scope.populateCalendar = ->
+  #$scope.populateCalendar = ->
 
+  $scope.submitMeeting = ->
+    validateMeetingForm = (meeting) ->
+      validDetails = true
+      for detail of meeting.details
+        if detail.length == 0
+          validDetails = false
 
+      if !validDetails
+        false
+      else if meeting.attendees.length == 0
+        false
+      else if meeting.timeSelection.length == 0
+        false
+      else
+        true
+
+    getDetails = ->
+      details =
+        what: document.getElementById("what").value
+        location: document.getElementById("location").value
+        duration: document.getElementById("duration").value
+      $scope.meeting.details = details
+
+    getTimeSelection = ->
+      times = []
+      times.push time.id for time in document.getElementsByClassName("selected")
+      $scope.meeting.timeSelection = times
+
+    getDetails()
+    getTimeSelection()
+
+    if validateMeetingForm($scope.meeting)
+      console.log $scope.meeting
+      Meeting.updateMeeting($scope.meeting).$promise.then ->
+        console.log 'Meeting submitted'
+        $location.path('/success')
+      .catch ->
+        console.log 'Submission error'
+    else
+      inform.add("You need to fill out all of the fields before your meeting can be scheduled.", {type: "danger"})
+      console.log 'Form validation failed'
