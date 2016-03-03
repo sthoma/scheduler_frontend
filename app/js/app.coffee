@@ -20,6 +20,9 @@ angular.module 'tandemApp', [
     .when "/",
       templateUrl: "./views/make-meeting.html",
       controller: "MeetingController"
+    .when "/success",
+      templateUrl: "./views/success.html",
+      controller: ""
     .when "/login",
       templateUrl: "./views/login.html",
       controller: "LoginController"

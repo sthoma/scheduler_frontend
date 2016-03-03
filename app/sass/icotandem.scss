@@ -37,6 +37,22 @@
 .icon-4x { font-size: 4em; }
 .icon-5x { font-size: 5em; }
 
+.icon-stack {
+  position: relative;
+  display: inline-block;
+  height: 2em;
+  width: 2em;
+  line-height: 2em;
+  vertical-align: middle;
+
+  > i {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+  }
+}
+
 .icon-sunrise {
     &:before {
         content: $icon-sunrise;
