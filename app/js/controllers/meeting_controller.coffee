@@ -9,28 +9,28 @@ angular.module 'tandemApp'
   $scope.meeting.schedule = [
       day_code: 'm',
       morning: true,
-      afternoon: false,
-      evening: false
+      afternoon: true,
+      evening: true
     ,
       day_code: 't',
       morning: true,
-      afternoon: false,
+      afternoon: true,
       evening: true
     ,
       day_code: 'w',
-      morning: false,
+      morning: true,
       afternoon: true,
       evening: true
     ,
       day_code: 'th',
       morning: true,
-      afternoon: false,
-      evening: false
+      afternoon: true,
+      evening: true
     ,
       day_code: 'f',
-      morning: false,
-      afternoon: false,
-      evening: false
+      morning: true,
+      afternoon: true,
+      evening: true
   ]
 
   Meeting.addMeeting().$promise.then (meeting) ->
@@ -46,9 +46,13 @@ angular.module 'tandemApp'
         email: $scope.newEmail
 
       Attendee.addAttendee(email).$promise.then (attendee) ->
-        # TODO: Store attendee info returned from backend
-        $scope.meeting.attendees.push email
+        newAttendee =
+          email: $scope.newEmail,
+          schedule: attendee.schedule
+        $scope.meeting.attendees.push newAttendee
+
         $scope.newEmail = ''
+        $scope.updateMeetingSchedule()
         inform.add("Added "+email.email, { type: "success" })
       .catch ->
         inform.add("Unable to add email address", {type: "danger"})
@@ -74,6 +78,17 @@ angular.module 'tandemApp'
         .catch ->
           console.log 'err'
           inform.add("Unable to remove email address", {type: "danger"})
+
+  $scope.updateMeetingSchedule= ->
+    # Grab the last schedule added
+    newSchedule = $scope.meeting.attendees[-1..][0].schedule
+    for day, idx in $scope.meeting.schedule
+      for key of day
+        if key == 'day_code' or key == '$$hashKey'
+          continue
+        # If chunk is available and new schedule chunk is unavailable
+        if day[key] and not newSchedule[idx][key]
+          day[key] = false
 
   $scope.submitMeeting = ->
     validateMeetingForm = (meeting) ->
