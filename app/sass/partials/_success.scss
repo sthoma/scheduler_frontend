@@ -1,16 +1,3 @@
-#success {
-  margin-top: 10%;
-  padding: 50px 100px;
-  background-color: $gray-lighter;
-  border-radius: $border-radius-large;
-}
-
-#success-content {
-  display: table;
-  margin: 0 auto;
-  text-align: center;
-}
-
 #success-icon {
   height: 10em;
   width: 100%;
@@ -30,14 +17,6 @@
 }
 
 #success-social {
-  margin-top: 30px;
-  border-top: 1px solid $gray-light;
-
-  a {
-    text-decoration: none;
-    color: $gray;
-  }
-
   i {
     padding-right: $padding-base-horizontal;
   }
@@ -45,8 +24,8 @@
 
 .icon.icon-social {
   transition: all .3s;
+
   &:hover {
     color: $gray-dark;
   }
-
 }
