@@ -1,5 +1,5 @@
-@import "partials/globals";
 @import "partials/vendor_overrides";
+@import "partials/globals";
 @import "partials/bootstrap_tweaks";
 
 /* Sass Bower Dependencies */
@@ -8,6 +8,8 @@
 // endbower
 
 @import "icotandem";
+
+@import "partials/actionpage";
 
 @import "partials/login";
 @import "partials/header";
