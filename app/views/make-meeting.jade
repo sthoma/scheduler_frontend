@@ -31,7 +31,7 @@ div.meeting
       div(ng-if="!attendee.isTandemUser").attendee-list__attendee.attendee-list__attendee--unregistered
         i(title="").icon.icon-exclamation-triangle
         span {{attendee.email}} is not in Tandem.&nbsp;
-          a(href="#").invite Invite?
+          a(href="mailto:{{attendee.email}}?subject=Join Tandem&body=https://beta.betandem.com/").invite Invite?
         button.icon(ng-click="deleteAttendee($index)")
           i.icon.icon-times-circle.warn
 
