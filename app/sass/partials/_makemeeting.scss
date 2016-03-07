@@ -37,6 +37,35 @@ body {
     width: 100%;
   }
 
+  .attendee-list {
+    &__attendee {
+      > * {
+        margin-right: $padding-small-horizontal;
+      }
+
+      &--unregistered {
+        i.icon-exclamation-triangle {
+            color: $brand-danger;
+        }
+
+        a.invite  {
+          color: $gray-light;
+          border-bottom: 1px dotted $gray-light;
+
+          &:hover {
+            color: $gray;
+            border-bottom: 1px dotted $gray;
+          }
+        }
+
+        span {
+          color: $gray-light;
+        }
+
+      }
+    }
+  }
+
   .calendar {
     display: -webkit-flex;
     display: flex;

@@ -45,15 +45,23 @@ angular.module 'tandemApp'
         meeting_id: $scope.meeting.id,
         email: $scope.newEmail
 
-      Attendee.addAttendee(email).$promise.then (attendee) ->
+      Attendee.addAttendee(email).$promise.then (res) ->
+        isTandemUser = false
+        name = ''
+
+        for attendee in res.tandem_users
+          if attendee.email == $scope.newEmail
+            name = attendee.name
+            isTandemUser = true
+
         newAttendee =
+          name: name,
           email: $scope.newEmail,
-          schedule: attendee.schedule
+          isTandemUser: isTandemUser
         $scope.meeting.attendees.push newAttendee
+        $scope.meeting.schedule = res.schedule
 
         $scope.newEmail = ''
-        $scope.updateMeetingSchedule()
-        inform.add("Added "+email.email, { type: "success" })
       .catch ->
         inform.add("Unable to add email address", {type: "danger"})
 
@@ -72,23 +80,13 @@ angular.module 'tandemApp'
           meeting_id: $scope.meeting.id
           email: $scope.meeting.attendees[index].email
 
-        Attendee.deleteAttendee(delObject).$promise.then ->
-          inform.add("Removed "+delObject.email, { type: "success" })
+        Attendee.deleteAttendee(delObject).$promise.then (res) ->
           $scope.meeting.attendees.splice(index, 1)
+          $scope.meeting.schedule = res.schedule
+
         .catch ->
           console.log 'err'
           inform.add("Unable to remove email address", {type: "danger"})
-
-  $scope.updateMeetingSchedule= ->
-    # Grab the last schedule added
-    newSchedule = $scope.meeting.attendees[-1..][0].schedule
-    for day, idx in $scope.meeting.schedule
-      for key of day
-        if key == 'day_code' or key == '$$hashKey'
-          continue
-        # If chunk is available and new schedule chunk is unavailable
-        if day[key] and not newSchedule[idx][key]
-          day[key] = false
 
   $scope.submitMeeting = ->
     validateMeetingForm = (meeting) ->
