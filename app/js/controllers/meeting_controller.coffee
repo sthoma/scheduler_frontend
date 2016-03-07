@@ -9,28 +9,28 @@ angular.module 'tandemApp'
   $scope.meeting.schedule = [
       day_code: 'm',
       morning: true,
-      afternoon: false,
-      evening: false
+      afternoon: true,
+      evening: true
     ,
       day_code: 't',
       morning: true,
-      afternoon: false,
+      afternoon: true,
       evening: true
     ,
       day_code: 'w',
-      morning: false,
+      morning: true,
       afternoon: true,
       evening: true
     ,
       day_code: 'th',
       morning: true,
-      afternoon: false,
-      evening: false
+      afternoon: true,
+      evening: true
     ,
       day_code: 'f',
-      morning: false,
-      afternoon: false,
-      evening: false
+      morning: true,
+      afternoon: true,
+      evening: true
   ]
 
   Meeting.addMeeting().$promise.then (meeting) ->
@@ -45,11 +45,23 @@ angular.module 'tandemApp'
         meeting_id: $scope.meeting.id,
         email: $scope.newEmail
 
-      Attendee.addAttendee(email).$promise.then (attendee) ->
-        # TODO: Store attendee info returned from backend
-        $scope.meeting.attendees.push email
+      Attendee.addAttendee(email).$promise.then (res) ->
+        isTandemUser = false
+        name = ''
+
+        for attendee in res.tandem_users
+          if attendee.email == $scope.newEmail
+            name = attendee.name
+            isTandemUser = true
+
+        newAttendee =
+          name: name,
+          email: $scope.newEmail,
+          isTandemUser: isTandemUser
+        $scope.meeting.attendees.push newAttendee
+        $scope.meeting.schedule = res.schedule
+
         $scope.newEmail = ''
-        inform.add("Added "+email.email, { type: "success" })
       .catch ->
         inform.add("Unable to add email address", {type: "danger"})
 
@@ -68,9 +80,10 @@ angular.module 'tandemApp'
           meeting_id: $scope.meeting.id
           email: $scope.meeting.attendees[index].email
 
-        Attendee.deleteAttendee(delObject).$promise.then ->
-          inform.add("Removed "+delObject.email, { type: "success" })
+        Attendee.deleteAttendee(delObject).$promise.then (res) ->
           $scope.meeting.attendees.splice(index, 1)
+          $scope.meeting.schedule = res.schedule
+
         .catch ->
           console.log 'err'
           inform.add("Unable to remove email address", {type: "danger"})
