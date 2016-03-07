@@ -76,7 +76,11 @@ angular.module 'tandemApp'
           inform.add("Unable to remove email address", {type: "danger"})
 
   $scope.submitMeeting = ->
-    Email.sendMeetingInvite({meeting_id: $scope.meeting.id})
+    Email.sendMeetingInvite({
+      meeting_id: $scope.meeting.id
+      meetingSummary: $scope.meeting.details.what
+      meetingLocation: $scope.meeting.details.location
+      })
     validateMeetingForm = (meeting) ->
       validDetails = true
       for detail of meeting.details
