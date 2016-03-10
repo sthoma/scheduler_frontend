@@ -3,7 +3,7 @@
 angular.module 'tandemApp'
 
 .controller 'MeetingController',
-($scope, $location, Meeting, Attendee, inform, SweetAlert) ->
+($scope, $location, Meeting, Attendee, Email, inform, SweetAlert) ->
   $scope.meeting = {}
   $scope.meeting.attendees = []
   $scope.meeting.schedule = [
@@ -89,6 +89,11 @@ angular.module 'tandemApp'
           inform.add("Unable to remove email address", {type: "danger"})
 
   $scope.submitMeeting = ->
+    Email.sendMeetingInvite({
+      meeting_id: $scope.meeting.id
+      meetingSummary: $scope.meeting.details.what
+      meetingLocation: $scope.meeting.details.location
+      })
     validateMeetingForm = (meeting) ->
       validDetails = true
       for detail of meeting.details
