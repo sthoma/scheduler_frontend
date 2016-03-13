@@ -22,18 +22,22 @@ div.meeting
       div.form-group
         button.icon(ng-click="addAttendee()" type="submit")
           i.icon.icon-plus.icon--primary.success
-    div.col-lg-12(ng-repeat="attendee in meeting.attendees").attendee-list
-      div(ng-if="attendee.isTandemUser").attendee-list__attendee.attendee-list__attendee--registered
-        span {{attendee.name}}
-        span {{attendee.email}}
-        button.icon(ng-click="deleteAttendee($index)")
-          i.icon.icon-times-circle.warn
-      div(ng-if="!attendee.isTandemUser").attendee-list__attendee.attendee-list__attendee--unregistered
-        i(title="").icon.icon-exclamation-triangle
-        span {{attendee.email}} is not in Tandem.&nbsp;
-          a(href="mailto:{{attendee.email}}?subject=Join Tandem&body=https://beta.betandem.com/").invite Invite?
-        button.icon(ng-click="deleteAttendee($index)")
-          i.icon.icon-times-circle.warn
+
+    div.col-lg-6.attendee-list
+      div(ng-if="!meeting.attendees.length")
+        span Enter emails above to invite your attendees
+      div(ng-repeat="attendee in meeting.attendees")
+        div(ng-if="attendee.isTandemUser").attendee-list__attendee.attendee-list__attendee--registered
+          span {{attendee.name}}
+          span {{attendee.email}}
+          button.icon(ng-click="deleteAttendee($index)")
+            i.icon.icon-times-circle.warn
+        div(ng-if="!attendee.isTandemUser").attendee-list__attendee.attendee-list__attendee--unregistered
+          i(title="").icon.icon-exclamation-triangle
+          span {{attendee.email}} is not in Tandem.&nbsp;
+            a(href="mailto:{{attendee.email}}?subject=Join Tandem&body=https://beta.betandem.com/").invite Invite?
+          button.icon(ng-click="deleteAttendee($index)")
+            i.icon.icon-times-circle.warn
 
   div.col-lg-12.when
     h2 When is it
