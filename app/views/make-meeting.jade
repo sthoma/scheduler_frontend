@@ -10,8 +10,9 @@ div.meeting
         div.form-group
           select#duration.form-control(ng-model="meeting.details.duration" required)
              option(value="" disabled selected hidden) How long
+             option(value="15") 15 minutes
              option(value="30") 30 minutes
-             option(value="60") 1 hour
+             option(value="60") 60 minutes
   div.col-lg-12.attendees
     h2 Who's coming
       span.instructions Enter your guest's emails and we'll grab their availability
@@ -20,10 +21,9 @@ div.meeting
         input#email.form-control(ng-model="newEmail" placeholder="Email")
       div.form-group
         button.icon(ng-click="addAttendee()" type="submit")
-          i.icon.icon-2x.icon-check-circle.success
+          i.icon.icon-plus.icon--primary.success
     div.col-lg-12(ng-repeat="attendee in meeting.attendees").attendee-list
       div(ng-if="attendee.isTandemUser").attendee-list__attendee.attendee-list__attendee--registered
-        //-i.icon.icon-check-circle
         span {{attendee.name}}
         span {{attendee.email}}
         button.icon(ng-click="deleteAttendee($index)")
@@ -37,7 +37,7 @@ div.meeting
 
   div.col-lg-12.when
     h2 When is it
-      span.instructions Here are the chunks of time that work for everyone. Choose one, or a few and Tandem will do the rest
+      span.instructions These are the chunks of time that work for everyone. Choose one, or a few and Tandem will do the rest
     div.calendar.col-lg-12
       div.day(id="{{day.day_code}}" ng-repeat="day in meeting.schedule")
         span {{day.day_code}}

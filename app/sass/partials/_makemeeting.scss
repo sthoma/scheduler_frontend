@@ -11,12 +11,15 @@ body {
 
     span {
       font-size: $font-size-h6;
+      text-transform: none;
       display: table-cell;
       vertical-align: middle;
 
       &:before {
-        padding: 10px;
-        content: "|";
+        padding-right: 5px;
+        margin-left: 10px;
+        border-left: 1px solid $gray-light;
+        content: "";
       }
 
     }
@@ -35,6 +38,13 @@ body {
 
   #what,#email { // dumb input widths
     width: 100%;
+  }
+
+  .details .form-group:not(:last-child) {
+    padding-right: 15px;
+  }
+  .attendees form button {
+    margin-top: 7px;
   }
 
   .attendee-list {
@@ -106,18 +116,17 @@ body {
       }
 
       .times {
-        margin-top: 20px;
-        padding: 10px;
-        border-radius: 2px;
+        margin-top: $padding-base-vertical;
+        padding: $padding-large-vertical;
+        border-radius: $border-radius-small;
         background-color: $gray-lighter;
-        border-radius: 3px;
 
         > div {
           position: relative;
           cursor: pointer;
           height: 100px;
           transition: background-color .2s;
-          border-radius: 3px;
+          border-radius: $border-radius-small;
 
           i {
             position: relative;
@@ -148,7 +157,7 @@ body {
             cursor: initial;
 
             i {
-              color: $gray;
+              color: $gray-light;
             }
 
             &:before {
