@@ -82,6 +82,7 @@ body {
     padding: 15px;
     margin-left: 15px;
     margin-top: $padding-large-vertical;
+    margin-bottom: $padding-large-vertical;
 
     > div:not(:last-child) {
       margin-bottom: $padding-base-vertical;
