@@ -90,11 +90,6 @@ angular.module 'tandemApp'
           inform.add("Unable to remove email address", {type: "danger"})
 
   $scope.submitMeeting = ->
-    Email.sendMeetingInvite({
-      meeting_id: $scope.meeting.id
-      meetingSummary: $scope.meeting.details.what
-      meetingLocation: $scope.meeting.details.location
-      })
     validateMeetingForm = (meeting) ->
       validDetails = true
       for detail of meeting.details
@@ -105,7 +100,7 @@ angular.module 'tandemApp'
         false
       else if meeting.attendees.length == 0
         false
-      else if meeting.timeSelection.length == 0
+      else if meeting.timeSelections.length == 0
         false
       else
         true
@@ -119,8 +114,12 @@ angular.module 'tandemApp'
 
     getTimeSelection = ->
       times = []
-      times.push time.id for time in document.getElementsByClassName("selected")
-      $scope.meeting.timeSelection = times
+      for selection in document.getElementsByClassName("selected")
+        time_selection = selection.id.split(".")
+        for day in $scope.meeting.schedule
+          if day['day_code'] == time_selection[0]
+            times.push slot for slot in day[time_selection[1]]
+      $scope.meeting.timeSelections = times
 
     getDetails()
     getTimeSelection()
@@ -128,6 +127,12 @@ angular.module 'tandemApp'
     if validateMeetingForm($scope.meeting)
       console.log $scope.meeting
       Meeting.updateMeeting($scope.meeting).$promise.then ->
+        Email.sendMeetingInvite({
+          meeting_id: $scope.meeting.id
+          meeting_summary: $scope.meeting.details.what
+          meeting_location: $scope.meeting.details.location
+          meeting_time_selection: $scope.meeting.timeSelections
+        })
         console.log 'Meeting submitted'
         $location.path('/success')
       .catch ->
