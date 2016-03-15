@@ -33,8 +33,9 @@ angular.module 'tandemApp'
       evening: true
   ]
 
-  Meeting.addMeeting().$promise.then (meeting) ->
-    $scope.meeting.id = meeting._id
+  Meeting.addMeeting().$promise.then (res) ->
+    $scope.meeting.id = res.meeting_id
+    $scope.meeting.schedule = res.schedule
 
   $scope.addAttendee = ->
     duplicate = $scope.meeting.attendees.some (elem) ->
