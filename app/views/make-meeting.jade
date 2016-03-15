@@ -15,7 +15,6 @@ div.meeting
              option(value="60") 60 minutes
   div.col-lg-12.attendees
     h2 Who's coming
-      span.instructions Enter your guest's emails and we'll grab their availability
     form.form-inline
       div.form-group.col-lg-5
         input#email.form-control(ng-model="newEmail" placeholder="Email")
@@ -25,7 +24,7 @@ div.meeting
 
     div.col-lg-6.attendee-list
       div(ng-if="!meeting.attendees.length")
-        span Enter emails above to invite your attendees
+        span Enter attendee emails above and we'll grab their availability
       div(ng-repeat="attendee in meeting.attendees")
         div(ng-if="attendee.isTandemUser").attendee-list__attendee.attendee-list__attendee--registered
           span {{attendee.name}}
@@ -41,7 +40,11 @@ div.meeting
 
   div.col-lg-12.when
     h2 When is it
-      span.instructions These are the chunks of time that work for everyone. Choose one, or a few and Tandem will do the rest
+    div.instructions-box.col-lg-10
+      div: span There are some {{meeting.details.duration}} minute blocks of time that work for everyone to meet. Choose one and Tandem will do the rest
+      div(ng-if="!allAttendeesRegistered()").instruction--warning
+        i.icon.icon-exclamation-triangle
+        span Not all attendees are Tandem users. This calendar doesn't reflect their availability
     div.calendar.col-lg-12
       div.day(id="{{day.day_code}}" ng-repeat="day in meeting.schedule")
         span {{day.day_code}}
