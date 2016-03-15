@@ -88,12 +88,12 @@ body {
     }
 
     .instruction--warning span {
-      font-weight: 400;
+      font-weight: 500;
+      color: $gray;
     }
 
     span {
       font-size: $font-size-base;
-      font-weight: 200;
     }
 
     i {
