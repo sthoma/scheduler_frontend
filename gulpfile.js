@@ -60,7 +60,9 @@ gulp.task('coffee', function(){
   gulp.src('./app/**/*.coffee')
     .pipe(coffee({bare: false}).on('error', gutil.log))
     .pipe(gulp.dest(config.buildDir));
-
+  // copy in config file
+  gulp.src('./config/*')
+    .pipe(gulp.dest(config.buildDir + '/js/config'));
   // Production Uglify
   if(config.prod){
     gulp.src([config.prodDir + '/**/*.js'])

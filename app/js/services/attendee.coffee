@@ -1,8 +1,8 @@
 'use strict'
 
 angular.module('tandemApp')
-  .factory 'Attendee', ($resource, CONST) ->
-    return $resource CONST.API_URL+'attendees/:id',
+  .factory 'Attendee', ($resource, apiUrl) ->
+    return $resource apiUrl+'attendees/:id',
         {id: '@_id'},
         {
           'getAttendees': {method: 'GET',  isArray: true},
