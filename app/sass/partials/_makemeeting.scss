@@ -3,23 +3,15 @@ body {
 }
 
 .meeting {
+  i.icon-exclamation-triangle {
+      color: $brand-danger;
+  }
+
   h2 {
     display: table;
     text-transform: uppercase;
     color: $gray-light;
     font-weight: 300;
-
-    span {
-      font-size: $font-size-h6;
-      display: table-cell;
-      vertical-align: middle;
-
-      &:before {
-        padding: 10px;
-        content: "|";
-      }
-
-    }
   }
 
   label {
@@ -37,17 +29,35 @@ body {
     width: 100%;
   }
 
+  .details .form-group:not(:last-child) {
+    padding-right: 15px;
+  }
+
+  .attendees form button {
+    margin-top: 7px;
+  }
+
   .attendee-list {
+    padding: 15px;
+    margin-left: 15px;
+    margin-top: $padding-large-vertical;
+    background-color: $gray-lighter;
+    border-radius: $border-radius-small;
+
+    > div:not(:last-child) {
+      padding-bottom: $padding-base-vertical;
+    }
+
     &__attendee {
+      button {
+        float: right;
+      }
+
       > * {
         margin-right: $padding-small-horizontal;
       }
 
       &--unregistered {
-        i.icon-exclamation-triangle {
-            color: $brand-danger;
-        }
-
         a.invite  {
           color: $gray-light;
           border-bottom: 1px dotted $gray-light;
@@ -63,6 +73,32 @@ body {
         }
 
       }
+    }
+  }
+
+  .instructions-box {
+    background-color: $gray-lighter;
+    border-radius: $border-radius-small;
+    padding: 15px;
+    margin-left: 15px;
+    margin-top: $padding-large-vertical;
+    margin-bottom: $padding-large-vertical;
+
+    > div:not(:last-child) {
+      margin-bottom: $padding-base-vertical;
+    }
+
+    .instruction--warning span {
+      font-weight: 500;
+      color: $gray;
+    }
+
+    span {
+      font-size: $font-size-base;
+    }
+
+    i {
+      margin-right: $padding-xs-horizontal;
     }
   }
 
@@ -106,18 +142,17 @@ body {
       }
 
       .times {
-        margin-top: 20px;
-        padding: 10px;
-        border-radius: 2px;
+        margin-top: $padding-base-vertical;
+        padding: $padding-large-vertical;
+        border-radius: $border-radius-small;
         background-color: $gray-lighter;
-        border-radius: 3px;
 
         > div {
           position: relative;
           cursor: pointer;
           height: 100px;
           transition: background-color .2s;
-          border-radius: 3px;
+          border-radius: $border-radius-small;
 
           i {
             position: relative;
@@ -148,7 +183,7 @@ body {
             cursor: initial;
 
             i {
-              color: $gray;
+              color: $gray-light;
             }
 
             &:before {

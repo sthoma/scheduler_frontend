@@ -6,6 +6,8 @@ angular.module 'tandemApp'
 ($scope, $location, Meeting, Attendee, Email, inform, SweetAlert) ->
   $scope.meeting = {}
   $scope.meeting.attendees = []
+  $scope.meeting.details = {}
+  $scope.meeting.details.duration = 60
   $scope.meeting.schedule = [
       day_code: 'm',
       morning: true,
@@ -36,6 +38,12 @@ angular.module 'tandemApp'
   Meeting.addMeeting().$promise.then (res) ->
     $scope.meeting.id = res.meeting_id
     $scope.meeting.schedule = res.schedule
+
+  $scope.allAttendeesRegistered = ->
+    for attendee in $scope.meeting.attendees
+      if !attendee.isTandemUser
+        return false
+    return true
 
   $scope.addAttendee = ->
     duplicate = $scope.meeting.attendees.some (elem) ->

@@ -10,34 +10,41 @@ div.meeting
         div.form-group
           select#duration.form-control(ng-model="meeting.details.duration" required)
              option(value="" disabled selected hidden) How long
+             option(value="15") 15 minutes
              option(value="30") 30 minutes
-             option(value="60") 1 hour
+             option(value="60") 60 minutes
   div.col-lg-12.attendees
     h2 Who's coming
-      span.instructions Enter your guest's emails and we'll grab their availability
     form.form-inline
       div.form-group.col-lg-5
         input#email.form-control(ng-model="newEmail" placeholder="Email")
       div.form-group
         button.icon(ng-click="addAttendee()" type="submit")
-          i.icon.icon-2x.icon-check-circle.success
-    div.col-lg-12(ng-repeat="attendee in meeting.attendees").attendee-list
-      div(ng-if="attendee.isTandemUser").attendee-list__attendee.attendee-list__attendee--registered
-        //-i.icon.icon-check-circle
-        span {{attendee.name}}
-        span {{attendee.email}}
-        button.icon(ng-click="deleteAttendee($index)")
-          i.icon.icon-times-circle.warn
-      div(ng-if="!attendee.isTandemUser").attendee-list__attendee.attendee-list__attendee--unregistered
-        i(title="").icon.icon-exclamation-triangle
-        span {{attendee.email}} is not in Tandem.&nbsp;
-          a(href="mailto:{{attendee.email}}?subject=Join Tandem&body=https://beta.betandem.com/").invite Invite?
-        button.icon(ng-click="deleteAttendee($index)")
-          i.icon.icon-times-circle.warn
+          i.icon.icon-plus.icon--primary.success
+
+    div.col-lg-6.attendee-list
+      div(ng-if="!meeting.attendees.length")
+        span Enter attendee emails above and we'll grab their availability
+      div(ng-repeat="attendee in meeting.attendees")
+        div(ng-if="attendee.isTandemUser").attendee-list__attendee.attendee-list__attendee--registered
+          span {{attendee.name}}
+          span {{attendee.email}}
+          button.icon(ng-click="deleteAttendee($index)")
+            i.icon.icon-times-circle.warn
+        div(ng-if="!attendee.isTandemUser").attendee-list__attendee.attendee-list__attendee--unregistered
+          i(title="").icon.icon-exclamation-triangle
+          span {{attendee.email}} is not in Tandem.&nbsp;
+            a(href="mailto:{{attendee.email}}?subject=Join Tandem&body=https://beta.betandem.com/").invite Invite?
+          button.icon(ng-click="deleteAttendee($index)")
+            i.icon.icon-times-circle.warn
 
   div.col-lg-12.when
     h2 When is it
-      span.instructions Here are the chunks of time that work for everyone. Choose one, or a few and Tandem will do the rest
+    div.instructions-box.col-lg-10
+      div: span There are some {{meeting.details.duration}} minute blocks of time that work for everyone to meet. Choose one and Tandem will do the rest
+      div(ng-if="!allAttendeesRegistered()").instruction--warning
+        i.icon.icon-exclamation-triangle
+        span Not all attendees are Tandem users. This calendar doesn't reflect their availability
     div.calendar.col-lg-12
       div.day(id="{{day.day_code}}" ng-repeat="day in meeting.schedule")
         span {{day.day_code}}
