@@ -12,8 +12,6 @@ angular.module 'tandemApp', [
   'inform-http-exception'
   'angular-jwt'
 ]
-.constant "CONST",
-  "API_URL": "http://localhost:3000/api/v1/"
 
 .config ($routeProvider) ->
   $routeProvider
@@ -36,13 +34,13 @@ angular.module 'tandemApp', [
   # Enable pretty urls (without '/#')
   $locationProvider.html5Mode(true)
 
-.config ($authProvider, CONST) ->
+.config ($authProvider, apiUrl, googleConfig) ->
   # Satelizer Settings
   $authProvider.storageType = 'localStorage'
 
   # Auth Providers
   $authProvider.google
-    url: CONST.API_URL + "login"
+    url: apiUrl + "login"
     optionalUrlParams: ['access_type']
     accessType: "offline"
     scope: [
@@ -50,8 +48,7 @@ angular.module 'tandemApp', [
       'email'
       'https://www.googleapis.com/auth/calendar'
     ]
-    clientId: '249264490300-27p809lag3hg5jhhnaufog8m25i2afhm'+
-    '.apps.googleusercontent.com'
+    clientId: googleConfig.clientId
 
 .run ($auth, $location) ->
   # Punt from pageload if no auth present

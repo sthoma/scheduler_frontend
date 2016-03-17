@@ -1,9 +1,9 @@
 'use strict'
 
 angular.module('tandemApp')
-  .factory 'Meeting', ($resource, CONST) ->
+  .factory 'Meeting', ($resource, apiUrl) ->
     #This will be more fleshed out when backend API is defined
-    return $resource CONST.API_URL+'meetings/:id',
+    return $resource apiUrl+'meetings/:id',
         {id: '@_id'},
         {
           'getMeetings': {method: 'GET',  isArray: true},
