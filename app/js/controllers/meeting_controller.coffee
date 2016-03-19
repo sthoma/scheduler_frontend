@@ -97,6 +97,14 @@ angular.module 'tandemApp'
           console.log 'err'
           inform.add("Unable to remove email address", {type: "danger"})
 
+  $scope.setMeetingLength = (length_in_min) ->
+    $scope.meeting.length_in_min = length_in_min
+    Meeting.updateMeeting($scope.meeting).$promise.then (res)->
+      $scope.meeting.schedule = res.schedule
+      console.log 'Meeting Length Updated!'
+    .catch ->
+      console.log 'Meeting Length update error'
+
   $scope.submitMeeting = ->
     validateMeetingForm = (meeting) ->
       validDetails = true
@@ -109,6 +117,8 @@ angular.module 'tandemApp'
       else if meeting.attendees.length == 0
         false
       else if meeting.timeSelections.length == 0
+        false
+      else if !$scope.meeting.length_in_min
         false
       else
         true
@@ -140,6 +150,7 @@ angular.module 'tandemApp'
           meeting_summary: $scope.meeting.details.what
           meeting_location: $scope.meeting.details.location
           meeting_time_selection: $scope.meeting.timeSelections
+          meeting_length: $scope.meeting.length_in_min
         })
         console.log 'Meeting submitted'
         $location.path('/success')
