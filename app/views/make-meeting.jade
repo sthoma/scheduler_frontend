@@ -4,11 +4,11 @@ div.meeting
     form.col-lg-8
       div.form-inline.row
         div.form-group.col-lg-6
-          input#what.form-control(ng-model="meeting.details.what" placeholder="What")
+          input#what.form-control(ng-model="meeting.details.what" placeholder="What" analytics-on="focusout")
         div.form-group
-          input#location.form-control(ng-model="meeting.details.location" placeholder="Where")
+          input#location.form-control(ng-model="meeting.details.location" placeholder="Where" analytics-on="focusout")
         div.form-group
-          select#duration.form-control(ng-model="meeting.details.duration" required ng-change="setMeetingLength(meeting.details.duration)")
+          select#duration.form-control(ng-model="meeting.details.duration" required ng-change="setMeetingLength(meeting.details.duration)" analytics-on="change")
              option(value="" disabled selected hidden) How long
              option(value="15") 15 minutes
              option(value="30") 30 minutes
@@ -19,7 +19,7 @@ div.meeting
       div.form-group.col-lg-5
         input#email.form-control(ng-model="newEmail" placeholder="Email")
       div.form-group
-        button.icon(ng-click="addAttendee()" type="submit")
+        button.icon(ng-click="addAttendee()" type="submit" analytics-on="click" analytics-event="Add Attendee")
           i.icon.icon-plus.icon--primary.success
 
     div.col-lg-6.attendee-list
@@ -29,12 +29,12 @@ div.meeting
         div(ng-if="attendee.isTandemUser").attendee-list__attendee.attendee-list__attendee--registered
           span {{attendee.name}}
           span {{attendee.email}}
-          button.icon(ng-click="deleteAttendee($index)")
+          button.icon(ng-click="deleteAttendee($index)" analytics-on="click" analytics-event="Remove Attendee")
             i.icon.icon-times-circle.warn
         div(ng-if="!attendee.isTandemUser").attendee-list__attendee.attendee-list__attendee--unregistered
           i(title="").icon.icon-exclamation-triangle
           span {{attendee.email}} is not in Tandem.&nbsp;
-            a(href="mailto:{{attendee.email}}?subject=Join Tandem&body=https://beta.betandem.com/").invite Invite?
+            a(href="mailto:{{attendee.email}}?subject=Join Tandem&body=https://beta.betandem.com/" analytics-on="click" analytics-event="Invite someone").invite Invite?
           button.icon(ng-click="deleteAttendee($index)")
             i.icon.icon-times-circle.warn
 
@@ -49,11 +49,11 @@ div.meeting
       div.day(id="{{day.day_code}}" ng-repeat="day in meeting.schedule")
         span {{day.day_code}}
         div.times
-          div.morning(selectable id="{{day.day_code}}.morning" class="{{day.morning.length ? 'available' : 'unavailable'}}")
+          div.morning(selectable id="{{day.day_code}}.morning" class="{{day.morning.length ? 'available' : 'unavailable'}}" analytics-on="click" analytics-event="Select Time")
             i.icon.icon-4x.icon-sunrise
-          div.afternoon(selectable id="{{day.day_code}}.afternoon" class="{{day.afternoon.length ? 'available' : 'unavailable'}}")
+          div.afternoon(selectable id="{{day.day_code}}.afternoon" class="{{day.afternoon.length ? 'available' : 'unavailable'}}" analytics-on="click" analytics-event="Select Time")
             i.icon.icon-4x.icon-sun
-          div.evening(selectable id="{{day.day_code}}.evening" class="{{day.evening.length ? 'available' : 'unavailable'}}")
+          div.evening(selectable id="{{day.day_code}}.evening" class="{{day.evening.length ? 'available' : 'unavailable'}}" analytics-on="click" analytics-event="Select Time")
             i.icon.icon-4x.icon-moon
       div.chunks
         div
@@ -66,4 +66,4 @@ div.meeting
           span Evening
           span 5-8
   div#submit.col-lg-2.col-lg-offset-10
-    button.btn.btn-lg.btn-primary(ng-click="submitMeeting()") Schedule it
+    button.btn.btn-lg.btn-primary(ng-click="submitMeeting()" analytics-on="click" analytics-event="Schedule Meeting") Schedule it

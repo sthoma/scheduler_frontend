@@ -3,7 +3,7 @@
 angular.module 'tandemApp'
 
 .controller 'MeetingController',
-($scope, $location, Meeting, Attendee, Email, inform, SweetAlert) ->
+($scope, $location, Meeting, Attendee, Email, inform, SweetAlert, $analytics) ->
   $scope.meeting = {}
   $scope.meeting.attendees = []
   $scope.meeting.details = {}
@@ -55,6 +55,7 @@ angular.module 'tandemApp'
         email: $scope.newEmail
 
       Attendee.addAttendee(email).$promise.then (res) ->
+        $analytics.eventTrack('Successfully Added Attendee')
         isTandemUser = false
         name = ''
 
@@ -72,9 +73,11 @@ angular.module 'tandemApp'
 
         $scope.newEmail = ''
       .catch ->
+        $analytics.eventTrack('Failed Add Attendee')
         inform.add("Unable to add email address", {type: "danger"})
 
   $scope.deleteAttendee = (index) ->
+
     SweetAlert.swal {
       title: "Are you sure?"
       text: "This will remove this person from your meeting"
@@ -85,6 +88,7 @@ angular.module 'tandemApp'
       closeOnConfirm: true
     }, (confirm)->
       if confirm
+        $analytics.eventTrack('Confirm Delete Attendee')
         delObject =
           meeting_id: $scope.meeting.id
           email: $scope.meeting.attendees[index].email
@@ -95,7 +99,10 @@ angular.module 'tandemApp'
 
         .catch ->
           console.log 'err'
+          $analytics.eventTrack('Error deleting Attendee')
           inform.add("Unable to remove email address", {type: "danger"})
+      else
+        $analytics.eventTrack('Cancel Delete Attendee')
 
   $scope.setMeetingLength = (length_in_min) ->
     $scope.meeting.length_in_min = length_in_min
@@ -103,7 +110,8 @@ angular.module 'tandemApp'
       $scope.meeting.schedule = res.schedule
       console.log 'Meeting Length Updated!'
     .catch ->
-      console.log 'Meeting Length update error'
+      $analytics.eventTrack('Error Updating Meeting Length')
+      inform.add("Unable to update meeting length", {type: "danger"})
 
   $scope.submitMeeting = ->
     validateMeetingForm = (meeting) ->
@@ -157,6 +165,7 @@ angular.module 'tandemApp'
       .catch ->
         console.log 'Submission error'
     else
+      $analytics.eventTrack('Form Invalidation Message')
       inform.add("You need to fill out all of the fields before your meeting \
                   can be scheduled.", {type: "danger"})
       console.log 'Form validation failed'
