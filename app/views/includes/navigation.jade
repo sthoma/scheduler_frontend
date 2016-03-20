@@ -7,7 +7,7 @@ nav.navbar.navbar-default.navbar-fixed-top(ng-controller="NavController")
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(href='/')
+      a.navbar-brand(href='/' analytics-on="click" analytics-event="Clicked Logo")
         img(src="/images/betandem-logo.png", alt="Tandem Scheduler")
     //-Collect the nav links, forms, and other content for toggling
     #bs-example-navbar-collapse-1.collapse.navbar-collapse(ng-controller="NavController")
@@ -15,4 +15,4 @@ nav.navbar.navbar-default.navbar-fixed-top(ng-controller="NavController")
         li
           p.navbar-text {{username}}
         li
-          a(href='/logout') Log Out
+          a(href='/logout' analytics-on="click" analytics-event="Log Out") Log Out

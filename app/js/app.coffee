@@ -11,6 +11,8 @@ angular.module 'tandemApp', [
   'inform-exception'
   'inform-http-exception'
   'angular-jwt'
+  'angulartics'
+  'angulartics.mixpanel'
 ]
 
 .config ($routeProvider) ->
@@ -33,6 +35,10 @@ angular.module 'tandemApp', [
 .config ($locationProvider) ->
   # Enable pretty urls (without '/#')
   $locationProvider.html5Mode(true)
+
+.config ($analyticsProvider) ->
+  $analyticsProvider.firstPageview(true)
+  $analyticsProvider.withAutoBase(true)
 
 .config ($authProvider, apiUrl, googleConfig) ->
   # Satelizer Settings
