@@ -30,9 +30,9 @@ angular.module 'tandemApp'
       elem.removeClass TOGGLE_CLASS
 
     else if !elem.hasClass 'unavailable'
-      # Uncomment to limit selection to one element
-      #angular.forEach items, (el) ->
-        #el.removeClass TOGGLE_CLASS
+      # Comment to allow selecting multiple times
+      angular.forEach items, (el) ->
+        el.removeClass TOGGLE_CLASS
       elem.addClass TOGGLE_CLASS
 
   selectLink = (scope, elem) ->
