@@ -17,7 +17,7 @@ div.meeting
     h2 Who's coming
     form.form-inline
       div.form-group.col-lg-5
-        input#email.form-control(ng-model="newEmail" placeholder="Email")
+        input#email.form-control(ng-model="newEmail" placeholder="Email" type="email")
       div.form-group
         button.icon(ng-click="addAttendee()" type="submit" analytics-on="click" analytics-event="Add Attendee")
           i.icon.icon-plus.icon--primary.success
